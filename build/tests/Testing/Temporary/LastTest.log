@@ -1,0 +1,37 @@
+Start testing: Dec 31 14:50 Bangladesh Standard Time
+----------------------------------------------------------
+1/2 Testing: ProfileLogicTest
+1/2 Test: ProfileLogicTest
+Command: "D:/sohan/VSCode/Heisenbugs/StudyChron/build/tests/test_profile.exe"
+Directory: D:/sohan/VSCode/Heisenbugs/StudyChron/build/tests
+"ProfileLogicTest" start time: Dec 31 14:50 Bangladesh Standard Time
+Output:
+----------------------------------------------------------
+Profile logic tests passed.
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"ProfileLogicTest" end time: Dec 31 14:50 Bangladesh Standard Time
+"ProfileLogicTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/2 Testing: UserWorkflowTest
+2/2 Test: UserWorkflowTest
+Command: "D:/sohan/VSCode/Heisenbugs/StudyChron/build/tests/test_user.exe"
+Directory: D:/sohan/VSCode/Heisenbugs/StudyChron/build/tests
+"UserWorkflowTest" start time: Dec 31 14:50 Bangladesh Standard Time
+Output:
+----------------------------------------------------------
+User logic tests passed.
+User destructor called for userId: 1001
+User destructor called for userId: 1000
+<end of output>
+Test time =   0.04 sec
+----------------------------------------------------------
+Test Passed.
+"UserWorkflowTest" end time: Dec 31 14:50 Bangladesh Standard Time
+"UserWorkflowTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Dec 31 14:50 Bangladesh Standard Time

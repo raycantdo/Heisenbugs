@@ -1,0 +1,15 @@
+# ninja log v6
+31	517	7888741323455772	tests/CMakeFiles/test_profile.dir/test_profile.cpp.obj	9cfca8fd24fe7470
+28	640	7888741323415783	CMakeFiles/StudyChronApp.dir/src/main.cpp.obj	13c8a3e9dad59758
+34	648	7888741323485800	tests/CMakeFiles/test_user.dir/test_user.cpp.obj	bebb302e007bce7e
+640	762	7888741329543335	StudyChronApp.exe	5d184e9d451c2188
+518	636	7888741328322336	tests/test_profile.exe	19156586f15a0c54
+648	770	7888741329623367	tests/test_user.exe	6d6262c16cdf7373
+177	2295	7905032634279343	tests/CMakeFiles/test_profile.dir/test_profile.cpp.obj	9cfca8fd24fe7470
+180	2303	7905032634309346	tests/CMakeFiles/test_user.dir/test_user.cpp.obj	bebb302e007bce7e
+173	2368	7905032634239295	CMakeFiles/StudyChronApp.dir/src/main.cpp.obj	13c8a3e9dad59758
+2303	2752	7905032655532890	tests/test_user.exe	6d6262c16cdf7373
+2296	2753	7905032655461170	tests/test_profile.exe	19156586f15a0c54
+2368	2753	7905032656189177	StudyChronApp.exe	5d184e9d451c2188
+22	573	7905032982160478	CMakeFiles/StudyChronApp.dir/src/main.cpp.obj	13c8a3e9dad59758
+574	684	7905032987679697	StudyChronApp.exe	5d184e9d451c2188
