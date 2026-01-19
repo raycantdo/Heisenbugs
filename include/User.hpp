@@ -56,7 +56,7 @@ public:
         {
             profile.displayProfileInfo();
         }
-        std::cout << std::endl;
+        
     }
     void updateProfile(int index, const Profile& newProfile)
     {

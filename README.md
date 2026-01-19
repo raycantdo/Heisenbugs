@@ -14,8 +14,5 @@ After making changes,
 run the following commands in the root directory:
 
 ```sh
-cd build
-cmake --build .
-cd..
-.\build\StudyChronApp.exe
+cmake --build build; .\build\StudyChronApp.exe
 ```
