@@ -52,11 +52,11 @@ public:
     }
     void displayProfiles() const
     {
-        cout << "Profiles for user: " << userName << endl;
         for (const auto& profile : userProfiles)
         {
             profile.displayProfileInfo();
         }
+        std::cout << std::endl;
     }
     void updateProfile(int index, const Profile& newProfile)
     {
@@ -85,7 +85,7 @@ public:
     {
         if (index >= 0 && index < userProfiles.size())
         {
-            cout << "Switched to profile: " << userProfiles[index].getName() << endl;
+            cout << "Switched to profile: " << userProfiles[index].getProfileName() << endl;
         }
         else
         {

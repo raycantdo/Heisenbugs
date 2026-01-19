@@ -8,9 +8,9 @@ int main()
     Profile p2("Masters", 4);
     Profile p3("PhD", 12);
 
-    assert(p1.getName() == "Undergrad");
-    assert(p2.getName() == "Masters");
-    
+    assert(p1.getProfileName() == "Undergrad");
+    assert(p2.getProfileName() == "Masters");
+
     std::cout << "Profile logic tests passed." << std::endl;
     return 0;
 }
