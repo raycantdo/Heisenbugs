@@ -28,6 +28,10 @@ public:
         }
         std::cout << std::endl;
     }
+    int getSemesterId() const {
+    return semesterId;
+    }
+
 };
 
 #endif
