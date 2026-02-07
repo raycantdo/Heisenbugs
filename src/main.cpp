@@ -1,8 +1,16 @@
 #include "User.hpp"
 #include "Profile.hpp"
 #include "Semester.hpp"
-#include <iomanip> // for std::setw
+#include "Quiz.hpp"
+#include "StudySession.hpp"
 
+#include <iomanip> // for std::setw
+std::map<std::string, double> StudySession::courseTotalTime;
+std::map<int, double> StudySession::semesterTotalTime  ;
+
+std::map<std::string, std::map<std::string, double>> StudySession::dailyCourseTime;
+
+std::map<std::string, std::map<Term, double>> StudySession::termCourseTime;
 int main()
 {
     // 1. Create the User Account
@@ -32,6 +40,41 @@ int main()
               << undergradProfile.getProfileName() << std::endl;
     std::cout << "------------------------------------------" << std::endl;
     undergradProfile.displayProfileInfo();
+    
+    StudySession session1("Calculus I",FINAL,1);
+    session1.startSession();
+    int stop;
+    std::cout << "Enter 0 to stop session: ";
+    std::cin >> stop;
+    if(!stop)
+    session1.endSession();
+    StudySession session2("Intro to Programming",MIDTERM,1);
+    StudySession session3("Calculus I",MIDTERM,1);
+    session2.startSession();
+    std::cout << "Enter 0 to stop session: ";   
+    std::cin >> stop;
+    if(!stop)    session2.endSession();
+    session3.startSession();
+    std::cout << "Enter 0 to stop session: ";   
+    std::cin >> stop;
+    if(!stop)    session3.endSession();
+    std::cout << "Duration of session 1: " << session1.getDurationInMinutes() << " minutes\n";
+    std::cout << "Duration of session 2: " << session2.getDurationInMinutes() << " minutes\n";
+    std::cout << "Duration of session 3: " << session3.getDurationInMinutes() << " minutes\n";
+    std::string today = session1.getCurrentDate();
+    std::cout << "Total time spent on Calculus I today: " 
+              << StudySession::getDailyCourseTime("Calculus I", today) << " minutes\n";
+    std::cout << "Total time spent on Intro to Programming today: " 
+              << StudySession::getDailyCourseTime("Intro to Programming", today) << " minutes\n";
+    std::cout<<"Total time spent on Calculus I :"<< StudySession::getCourseTotal("Calculus I") << " minutes\n";
+    std::cout<<"Total time spent on Intro to Programming :"<< StudySession::getCourseTotal("Intro to Programming") << " minutes\n";
+    std::cout << "Total time spent on Calculus I for MIDTERM: " 
+              << StudySession::getTermCourseTime("Calculus I", MIDTERM) << " minutes\n";
+    std::cout<<"Total time studying in Semester 1: "<< StudySession::getSemesterTotal(1) << " minutes\n";
+
+    Quiz q1(1,1,"Calculus I","Differentiation",{2026,02,16,14,00});
+    q1.displayQuizInfo();
+    q1.setquizDate({2026,02,20,14,00});
 
     // Add other profiles
     user.createProfile(Profile("Masters", 4));
@@ -49,6 +92,8 @@ int main()
     std::cout << "Switching to Graduate Profile view:" << std::endl;
     std::cout << "==========================================" << std::endl;
     user.switchProfile(1); // assuming index 1 is Masters
+
+
 
     return 0;
 }
