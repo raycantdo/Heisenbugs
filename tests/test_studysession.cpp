@@ -2,7 +2,8 @@
 #include <thread>
 #include "StudySession.hpp"
 std::map<std::string, double> StudySession::courseTotalTime;
-double StudySession::semesterTotalTime = 0.0;
+std::map<int, double> StudySession::semesterTotalTime  ;
+
 std::map<std::string, std::map<std::string, double>> StudySession::dailyCourseTime;
 
 std::map<std::string, std::map<Term, double>> StudySession::termCourseTime;
@@ -10,9 +11,9 @@ int main() {
     std::cout << "=== Study Session Test Started ===\n\n";
 
     
-    StudySession s1("CSE2201", MIDTERM);
-    StudySession s2("CSE2201", FINAL);
-    StudySession s3("MAT2101", MIDTERM);
+    StudySession s1("CSE2201", MIDTERM,1);
+    StudySession s2("CSE2201", FINAL,1);
+    StudySession s3("MAT2101", MIDTERM,1);
 
     
     s1.startSession();
@@ -59,7 +60,7 @@ int main() {
 
  
     std::cout << "Total Semester Study Minutes: "
-              << StudySession::getSemesterTotal() << "\n";
+              << StudySession::getSemesterTotal(1) << "\n";
 
     std::cout << "\n=== Test Finished ===\n";
 
