@@ -7,11 +7,13 @@
 #include <chrono>
 #include <thread>
 #include <map>
-
+#include "Course.hpp"
+#include "Semester.hpp"
 enum Term { MIDTERM, FINAL };
 
-class StudySession {
+class StudySession:public Semester {
 private:
+    
     std::string courseName;
     time_t startTime;
     time_t endTime;
@@ -21,7 +23,7 @@ private:
 
     
     static std::map<std::string, double> courseTotalTime;          // course -> total hours
-    static double semesterTotalTime;                               // total semester hours
+    static std::map<int, double> semesterTotalTime;                               // total semester hours
     static std::map<std::string, std::map<std::string, double>> dailyCourseTime; // course -> date -> hours
 
     static std::map<std::string, std::map<Term, double>> termCourseTime;        // course -> term -> hours
@@ -29,8 +31,8 @@ private:
     
     
 public:
-    StudySession(const std::string& name, Term t, const std::string& semesterStart = "2025-11-15")
-        : courseName(name), isRunning(false), term(t), semesterStartDate(semesterStart) {}
+    StudySession(const std::string& name, Term t,int semID, const std::string& semesterStart = "2025-11-15")
+        :Semester(semID), courseName(name), isRunning(false), term(t), semesterStartDate(semesterStart) {}
 
     void startSession() {
         startTime = time(nullptr);
@@ -53,7 +55,7 @@ public:
 
        
         courseTotalTime[courseName] += minutes;
-        semesterTotalTime += minutes;
+        semesterTotalTime[getSemesterId()] += minutes;
         dailyCourseTime[courseName][date] += minutes;
        
         termCourseTime[courseName][term] += minutes;
@@ -91,8 +93,8 @@ public:
         return termCourseTime[course][t];
     }
 
-    static double getSemesterTotal() {
-        return semesterTotalTime;
+    static double getSemesterTotal(int semID) {
+        return semesterTotalTime[semID];
     }
 };
 
