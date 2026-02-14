@@ -1,104 +1,80 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <map>
+#include <algorithm>
 #include "User.hpp"
 #include "Profile.hpp"
 #include "Semester.hpp"
-#include "Quiz.hpp"
 #include "StudySession.hpp"
-#include <fstream>
+#include "Quiz.hpp"
+#include "DataHandler.hpp"
+#include "Interface.hpp"
 
 using namespace std;
 
-#include <iomanip> // for setw
+// Define static members for the linker
 map<string, double> StudySession::courseTotalTime;
-map<int, double> StudySession::semesterTotalTime  ;
-
+map<int, double> StudySession::semesterTotalTime;
 map<string, map<string, double>> StudySession::dailyCourseTime;
-
 map<string, map<Term, double>> StudySession::termCourseTime;
 
-void syncUserToFile(const User& user)
-{
-    ofstream out("user_db.txt");
-    out << user.getUserName() << endl;
-    if (!user.getProfiles().empty()) {
-        out << user.getProfiles()[0].getProfileName() << endl;
-        for (const auto& sem : user.getProfiles()[0].getSemesters()) {
-            for (const auto& course : sem.getCourses()) {
-                out << course.getCourseName() << endl;
-            }
-        }
-    }
-}
 
 int main()
 {
-    ifstream in("user_db.txt");
+    displayTitle();
 
-    string uName, pName;
-    bool hasData = false;
-    if (in && getline(in, uName) && !uName.empty())
-    {
-        if (getline(in, pName) && !pName.empty())
-        {
-            hasData = true;
+    loadSessionData(); // Load the global study times map
+    
+    ifstream userDB("user_db.txt");
+    string userName, majorName, profileName; int totalSemesterCount;
+    vector<string> savedCourses;
+    
+    // 1. Better Loading Logic
+    if (getline(userDB, userName) && getline(userDB, majorName)) {
+        string courseName;
+        while (getline(userDB, courseName)) {
+            if(!courseName.empty()) savedCourses.push_back(courseName);
         }
     }
-    in.close();
+    userDB.close();
 
-    if (!hasData)
-    {
-        string name, p, c; float cr;
-        cout << "--- REGISTER ---\nName: "; getline(cin, name); uName = name;
-        cout << "Major: "; getline(cin, p);
-        cout << "Course: "; getline(cin, c);
-        cout << "Credits: "; cin >> cr; cin.ignore();
-        User newUser(name); Profile prof(p, 8); Semester sem(1);
-        sem.addCourse(c, cr); prof.addSemester(sem);
-        newUser.createProfile(prof); syncUserToFile(newUser);
+    // 2. Setup the User object
+    User activeUser(userName.empty() ? "Guest" : userName);
+    
+    if (userName.empty()) {
+        // --- REGISTRATION MODE ---
+        cout << "--- REGISTER ---\nName: "; getline(cin, userName);
+        cout << "Major: "; getline(cin, majorName);
+        cout << "Profile: "; getline(cin, profileName);
+        cout << "Total Semesters: "; cin >> totalSemesterCount;
         
+        activeUser.setUserName(userName);
+        Profile newProfile(profileName, totalSemesterCount);
+        newProfile.addSemester(Semester(1));
+        activeUser.createProfile(newProfile);
+        
+        saveData(activeUser);
+    }
+    else
+    {
+        // --- LOGIN MODE (Rebuilding the saved profile) ---
+        Profile existingProfile(profileName, totalSemesterCount);
+        Semester firstSemester(1);
+        
+        // Re-add the courses we found in the file
+        for (const string& cName : savedCourses)
+        {
+            firstSemester.addCourse(cName, 3.0); // Assuming 3 credits default
+        }
+        
+        existingProfile.addSemester(firstSemester);
+        activeUser.createProfile(existingProfile);
+        
+        cout << "Welcome back, " << userName << "!" << endl;
     }
 
-
-    cout << "==========================================" << endl;
-    cout << "Welcome, " << uName << "!" << endl;
-    cout << "==========================================" << endl << endl;
-
-    
-    StudySession session1("Calculus I",FINAL,1);
-    session1.startSession();
-    int stop;
-    cout << "Enter 0 to stop session: ";
-    cin >> stop;
-    if(!stop)
-    session1.endSession();
-    StudySession session2("Intro to Programming",MIDTERM,1);
-    StudySession session3("Calculus I",MIDTERM,1);
-    session2.startSession();
-    cout << "Enter 0 to stop session: ";   
-    cin >> stop;
-    if(!stop)    session2.endSession();
-    session3.startSession();
-    cout << "Enter 0 to stop session: ";   
-    cin >> stop;
-    if(!stop)    session3.endSession();
-    cout << "Duration of session 1: " << session1.getDurationInMinutes() << " minutes\n";
-    cout << "Duration of session 2: " << session2.getDurationInMinutes() << " minutes\n";
-    cout << "Duration of session 3: " << session3.getDurationInMinutes() << " minutes\n";
-    string today = session1.getCurrentDate();
-    cout << "Total time spent on Calculus I today: " 
-              << StudySession::getDailyCourseTime("Calculus I", today) << " minutes\n";
-    cout << "Total time spent on Intro to Programming today: " 
-              << StudySession::getDailyCourseTime("Intro to Programming", today) << " minutes\n";
-    cout<<"Total time spent on Calculus I :"<< StudySession::getCourseTotal("Calculus I") << " minutes\n";
-    cout<<"Total time spent on Intro to Programming :"<< StudySession::getCourseTotal("Intro to Programming") << " minutes\n";
-    cout << "Total time spent on Calculus I for MIDTERM: " 
-              << StudySession::getTermCourseTime("Calculus I", MIDTERM) << " minutes\n";
-    cout<<"Total time studying in Semester 1: "<< StudySession::getSemesterTotal(1) << " minutes\n";
-
-    Quiz q1(1,1,"Calculus I","Differentiation",{2026,02,16,14,00});
-    q1.displayQuizInfo();
-    q1.setquizDate({2026,02,20,14,00});
-
-
-
+    studyPortal(activeUser);
     return 0;
 }

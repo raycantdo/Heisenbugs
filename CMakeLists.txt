@@ -8,7 +8,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include_directories(include)
 
 # Main Application
-add_executable(StudyChronApp src/main.cpp)
+add_executable(StudyChronApp
+    src/main.cpp
+    src/DataHandler.cpp
+    src/Interface.cpp
+)
 
 # Link the tests folder
 add_subdirectory(tests)
