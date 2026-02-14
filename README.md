@@ -14,5 +14,5 @@ After making changes,
 run the following commands in the root directory:
 
 ```sh
-cmake --build build; .\build\StudyChronApp.exe
+Remove-Item -Recurse -Force build; cmake -B build; cmake --build build; .\build\StudyChronApp.exe
 ```
