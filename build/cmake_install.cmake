@@ -1,4 +1,4 @@
-# Install script for directory: D:/sohan/VSCode/Heisenbugs/StudyChron
+# Install script for directory: D:/sohan/VSCode/2/Heisenbugs
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("D:/sohan/VSCode/Heisenbugs/StudyChron/build/tests/cmake_install.cmake")
+  include("D:/sohan/VSCode/2/Heisenbugs/build/tests/cmake_install.cmake")
 
 endif()
 
@@ -58,6 +58,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-  file(WRITE "D:/sohan/VSCode/Heisenbugs/StudyChron/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "D:/sohan/VSCode/2/Heisenbugs/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

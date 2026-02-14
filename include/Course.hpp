@@ -12,6 +12,7 @@ private:
 public:
     Course(std::string name, float credits) : courseName(name), courseCredits(credits) {}
 
+    
 
     void setName(const std::string& name)
     {
@@ -22,7 +23,7 @@ public:
         courseCredits = credits;
     }
 
-    std::string getName() const
+    std::string getCourseName() const
     {
         return courseName;
     }

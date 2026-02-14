@@ -1,41 +1,12 @@
-# Prerequisites
-*.d
+# Ignore the entire build directory
+build/
+bin/
+out/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# Ignore Visual Studio Code settings
+.vscode/
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Linker files
-*.ilk
-
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
+# Ignore compiled executables
 *.exe
-*.out
-*.app
-
-# debug information files
-*.dwo
+*.dll
+*.so

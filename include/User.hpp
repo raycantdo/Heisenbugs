@@ -93,6 +93,15 @@ public:
         }
     }
 
+    vector<Profile>& getProfiles()
+    {
+        return userProfiles;
+    }
+    const vector<Profile>& getProfiles() const
+    {
+        return userProfiles;
+    }
+
 };
 
 
