@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 #include <iostream>
+
+using namespace std;
 class Profile
 {
 private:
@@ -34,5 +36,14 @@ public:
         }
         //std::cout << std::endl;
     }
+    vector<Semester>& getSemesters()
+    {
+        return semesters;
+    }
+    const vector<Semester>& getSemesters() const
+    {
+        return semesters;
+    }
+    
 };
 #endif

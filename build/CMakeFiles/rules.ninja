@@ -80,7 +80,7 @@ rule CXX_EXECUTABLE_LINKER__test_user_
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\mingw64\bin\cmake.exe --regenerate-during-build -SD:\sohan\VSCode\Heisenbugs\StudyChron -BD:\sohan\VSCode\Heisenbugs\StudyChron\build
+  command = C:\mingw64\bin\cmake.exe --regenerate-during-build -SD:\sohan\VSCode\2\Heisenbugs -BD:\sohan\VSCode\2\Heisenbugs\build
   description = Re-running CMake...
   generator = 1
 

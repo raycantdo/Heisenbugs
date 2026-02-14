@@ -5,6 +5,8 @@
 #include <vector>
 #include "Course.hpp"
 
+using namespace std;
+
 class Semester
 {
 private:
@@ -14,10 +16,18 @@ private:
 public:
     Semester(int id) : semesterId(id) {}
 
-    void addCourse(const Course& course)
+    // Non-const version for modification
+    vector<Course>& getCourses() { return courses; }
+    
+    // Const version for read-only access
+    const vector<Course>& getCourses() const { return courses; }
+
+
+    void addCourse(const string& name, float credits = 3.0)
     {
-        courses.push_back(course);
+        courses.emplace_back(name, credits);
     }
+
 
     void displaySemesterInfo() const
     {
