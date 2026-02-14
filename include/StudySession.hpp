@@ -22,15 +22,17 @@ private:
     std::string semesterStartDate;
 
     
+   
+    
+    
+public:
+
     static std::map<std::string, double> courseTotalTime;          // course -> total hours
     static std::map<int, double> semesterTotalTime;                               // total semester hours
     static std::map<std::string, std::map<std::string, double>> dailyCourseTime; // course -> date -> hours
 
     static std::map<std::string, std::map<Term, double>> termCourseTime;        // course -> term -> hours
 
-    
-    
-public:
     StudySession(const std::string& name, Term t,int semID, const std::string& semesterStart = "2025-11-15")
         :Semester(semID), courseName(name), isRunning(false), term(t), semesterStartDate(semesterStart) {}
 

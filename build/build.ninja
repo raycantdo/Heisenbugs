@@ -53,6 +53,24 @@ build CMakeFiles/StudyChronApp.dir/src/main.cpp.obj: CXX_COMPILER__StudyChronApp
   TARGET_COMPILE_PDB = CMakeFiles\StudyChronApp.dir\
   TARGET_PDB = StudyChronApp.pdb
 
+build CMakeFiles/StudyChronApp.dir/src/DataHandler.cpp.obj: CXX_COMPILER__StudyChronApp_unscanned_ D$:/sohan/VSCode/2/Heisenbugs/src/DataHandler.cpp || cmake_object_order_depends_target_StudyChronApp
+  DEP_FILE = CMakeFiles\StudyChronApp.dir\src\DataHandler.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -ID:/sohan/VSCode/2/Heisenbugs/include
+  OBJECT_DIR = CMakeFiles\StudyChronApp.dir
+  OBJECT_FILE_DIR = CMakeFiles\StudyChronApp.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\StudyChronApp.dir\
+  TARGET_PDB = StudyChronApp.pdb
+
+build CMakeFiles/StudyChronApp.dir/src/Interface.cpp.obj: CXX_COMPILER__StudyChronApp_unscanned_ D$:/sohan/VSCode/2/Heisenbugs/src/Interface.cpp || cmake_object_order_depends_target_StudyChronApp
+  DEP_FILE = CMakeFiles\StudyChronApp.dir\src\Interface.cpp.obj.d
+  FLAGS = -std=gnu++17
+  INCLUDES = -ID:/sohan/VSCode/2/Heisenbugs/include
+  OBJECT_DIR = CMakeFiles\StudyChronApp.dir
+  OBJECT_FILE_DIR = CMakeFiles\StudyChronApp.dir\src
+  TARGET_COMPILE_PDB = CMakeFiles\StudyChronApp.dir\
+  TARGET_PDB = StudyChronApp.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target StudyChronApp
@@ -61,7 +79,7 @@ build CMakeFiles/StudyChronApp.dir/src/main.cpp.obj: CXX_COMPILER__StudyChronApp
 #############################################
 # Link the executable StudyChronApp.exe
 
-build StudyChronApp.exe: CXX_EXECUTABLE_LINKER__StudyChronApp_ CMakeFiles/StudyChronApp.dir/src/main.cpp.obj
+build StudyChronApp.exe: CXX_EXECUTABLE_LINKER__StudyChronApp_ CMakeFiles/StudyChronApp.dir/src/main.cpp.obj CMakeFiles/StudyChronApp.dir/src/DataHandler.cpp.obj CMakeFiles/StudyChronApp.dir/src/Interface.cpp.obj
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\StudyChronApp.dir
   POST_BUILD = cd .
