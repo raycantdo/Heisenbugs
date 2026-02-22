@@ -3,6 +3,7 @@
 #include "StudySession.hpp"
 #include "Quiz.hpp"
 #include "SmartSuggestion.hpp"
+#include "Flashcard.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -21,13 +22,61 @@ void displayTitle() {
     )" << endl;
 }
 
+
+ // reviewFlashcards(Helper Function) - Allows the user to review flashcards for a chosen course based on a course number
+void reviewFlashcards(User& activeUser) 
+{
+    // Access the user's course list assuming the user has at least one course and one semester---
+    auto& courseList = activeUser.getProfiles()[0].getSemesters()[0].getCourses();
+
+    // Check if there are any courses ---
+    if (courseList.empty()) 
+    {
+        cout << "\nYou haven't added any courses yet. Please add a course first (Option 3).\n";
+        return; // Exit the function if no courses exist
+    }
+
+    //  Display courses with numbers for selection ---
+    cout << "\n--- Available Courses ---\n";
+    for (size_t i = 0; i < courseList.size(); ++i)
+    {
+        cout << i + 1 << ". " << courseList[i].getCourseName() << "\n";
+    }
+
+    //  Get user's choice ---
+    cout << "Select a course to review flashcards (enter number): ";
+    int choice;
+    cin >> choice;          // Read the number
+    cin.ignore(1000, '\n'); // Clear the newline left in the input buffer
+
+    //  Validate the choice ---
+    if (choice < 1 || choice > static_cast<int>(courseList.size()))
+    {
+        cout << "Invalid choice.\n";
+        return;
+    }
+
+    // Extract the chosen course name ---
+    string courseName = courseList[choice - 1].getCourseName(); // Convert to 0-based index
+
+    //  Create a FlashcardManager and load flashcards for this course ---
+    FlashcardManager fm; 
+    if (fm.loadForCourse(courseName)) 
+    {
+        // If loading succeeded, run the quiz ---
+        fm.runQuiz();
+    }
+    // If loadForCourse() fails, it prints error message,
+}
+
+
 void studyPortal(User& activeUser)
 {
     int userChoice;
     while (true)
     {
         cout << "\n======= DASHBOARD =======" << endl;
-        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6.Exit\nChoice: ";
+        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Flashcards\n7. Exit\nChoice: ";
         
         if (!(cin >> userChoice))
         {
@@ -145,6 +194,10 @@ void studyPortal(User& activeUser)
     
             SmartSuggestion<Course>::generateSuggestions(courseList,semID,StudySession::getAllCourseTotals());
         }
-        else if (userChoice == 6) return;
+        else if (userChoice == 6) 
+        {
+        reviewFlashcards(activeUser);
+        }
+        else if (userChoice == 7) return;
     }
 }
