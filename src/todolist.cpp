@@ -8,7 +8,6 @@ using namespace std;
 class ToDoList {
 
 private:
-
     enum Priority { LOW = 1, MEDIUM = 2, HIGH = 3 };
 
     struct Task {
@@ -57,7 +56,6 @@ private:
     }
 
 public:
-
     // Constructor
     ToDoList(string studentName)
         : owner(studentName), next_id(1) {
@@ -70,13 +68,14 @@ public:
     static int getTotalListsCreated() {
         return total_lists_created;
     }
-    // BASIC CRUD
 
+    // Add task to the list
     void add_task(string title, string subject, string category) {
         tasks.emplace_back(next_id++, title, subject, category);
         updateModifiedTime();
     }
 
+    // Remove task from the list
     void remove_task(int task_id) {
         int index = findTaskIndex(task_id);
         if (index != -1) {
@@ -85,6 +84,7 @@ public:
         }
     }
 
+    // Update task title
     void update_task(int task_id, string new_title) {
         int index = findTaskIndex(task_id);
         if (index != -1) {
@@ -92,8 +92,8 @@ public:
             updateModifiedTime();
         }
     }
-    // STATUS MANAGEMENT
 
+    // Mark a task as completed
     void mark_complete(int task_id) {
         int index = findTaskIndex(task_id);
         if (index != -1) {
@@ -103,6 +103,7 @@ public:
         }
     }
 
+    // Mark a task as incomplete
     void mark_incomplete(int task_id) {
         int index = findTaskIndex(task_id);
         if (index != -1) {
@@ -112,6 +113,7 @@ public:
         }
     }
 
+    // Calculate the completion rate
     double calculate_completion_rate() const {
         if (tasks.empty()) return 0.0;
 
@@ -122,8 +124,7 @@ public:
         return (double)completed / tasks.size() * 100.0;
     }
 
-    // PRIORITY & ORGANIZATION
-
+    // Set the priority of a task
     void set_priority(int task_id, Priority level) {
         int index = findTaskIndex(task_id);
         if (index != -1) {
@@ -132,6 +133,7 @@ public:
         }
     }
 
+    // Sort tasks by priority
     void sort_by_priority() {
         sort(tasks.begin(), tasks.end(),
              [](const Task &a, const Task &b) {
@@ -140,6 +142,7 @@ public:
              });
     }
 
+    // Sort tasks by deadline
     void sort_by_deadline() {
         sort(tasks.begin(), tasks.end(),
              [](const Task &a, const Task &b) {
@@ -147,6 +150,7 @@ public:
              });
     }
 
+    // Sort tasks by subject
     void sort_by_subject() {
         sort(tasks.begin(), tasks.end(),
              [](const Task &a, const Task &b) {
@@ -154,9 +158,7 @@ public:
              });
     }
 
-    // STUDY FEATURES
-
-
+    // Add study time to a task
     void add_study_time(int task_id, double hours) {
         int index = findTaskIndex(task_id);
         if (index != -1 && hours > 0) {
@@ -165,6 +167,7 @@ public:
         }
     }
 
+    // Get total study time for all tasks
     double get_total_study_time() const {
         double total = 0;
         for (const auto &t : tasks)
@@ -172,6 +175,7 @@ public:
         return total;
     }
 
+    // Add deadline to a task
     void add_deadline(int task_id, time_t deadline_time) {
         int index = findTaskIndex(task_id);
         if (index != -1) {
@@ -180,6 +184,7 @@ public:
         }
     }
 
+    // Get overdue tasks
     vector<int> get_overdue_tasks() const {
         vector<int> overdue_ids;
         time_t now = time(0);
@@ -190,8 +195,8 @@ public:
         }
         return overdue_ids;
     }
-    // PROGRESS TRACKING
 
+    // Generate progress report
     void generate_progress_report() const {
         cout << "\nOwner: " << owner << endl;
         cout << "Total Tasks: " << tasks.size() << endl;
@@ -200,5 +205,7 @@ public:
         cout << "Total Study Hours: "
              << get_total_study_time() << " hrs\n";
     }
-
 };
+
+// Initialize static variable
+int ToDoList::total_lists_created = 0;
