@@ -29,15 +29,11 @@ public:
 
     string getAnswer() const { return answer; }
 
-    /**
-     * Displays the question, waits for the user's answer, and checks correctness.
-     * The comparison is case‑insensitive (both strings converted to lowercase).
-     * Prints a checkmark (✅) if correct, or a cross (❌) and the correct answer if wrong.
-     */
+     // Displays the question, waits for the user's answer, and checks correctness.
 
     void ask() const 
 {
-        // Display the question
+    
         cout << "\n❓ " << question << "\nYour answer: ";
 
         // Read the user's answer (may contain spaces, so used getline)
@@ -64,15 +60,10 @@ public:
 };
 
 // ==================== FlashcardManager Class ====================
-/**
- * Manages a collection of flashcards for a specific course.
- * Can load flashcards from a file named "flashcards_<CourseName>.txt"
- * and run an interactive quiz in random order.
- */
 class FlashcardManager 
 {
 private:
-    vector<Flashcard> cards;   // Stores all flashcards a current course
+    vector<Flashcard> cards;   
 
 public:
     /**
