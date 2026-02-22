@@ -1,9 +1,0 @@
-# ninja log v6
-34	563	7927595511720028	tests/CMakeFiles/test_profile.dir/test_profile.cpp.obj	d7db578ab5e354fb
-566	717	7927595517032461	tests/test_profile.exe	19156586f15a0c54
-38	927	7927595511750026	tests/CMakeFiles/test_user.dir/test_user.cpp.obj	9e0366664c9af1b8
-27	1071	7927595511649990	CMakeFiles/StudyChronApp.dir/src/DataHandler.cpp.obj	cfc857d21dee259
-927	1072	7927595520643592	tests/test_user.exe	6d6262c16cdf7373
-23	1445	7927595511610031	CMakeFiles/StudyChronApp.dir/src/main.cpp.obj	33cea5d3f4510c6a
-30	1650	7927595511680005	CMakeFiles/StudyChronApp.dir/src/Interface.cpp.obj	3ceec126d74856f6
-1650	1791	7927595527879169	StudyChronApp.exe	30bdf613561dad62

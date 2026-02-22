@@ -2,6 +2,7 @@
 #include "DataHandler.hpp"
 #include "StudySession.hpp"
 #include "Quiz.hpp"
+#include "SmartSuggestion.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -26,7 +27,7 @@ void studyPortal(User& activeUser)
     while (true)
     {
         cout << "\n======= DASHBOARD =======" << endl;
-        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. View Quizzes\n6. Exit\nChoice: ";
+        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6.Exit\nChoice: ";
         
         if (!(cin >> userChoice))
         {
@@ -131,15 +132,18 @@ void studyPortal(User& activeUser)
             else cout << "Error: Course not found." << endl;
             
         }
-        else if (userChoice == 5)
+        
+        else if(userChoice==5)
         {
-            cout << "\n--- UPCOMING QUIZZES ---" << endl;
-
-            for(const auto& course : courseList)
-            {
-                Quiz q(1, 1, course.getCourseName(), "Module Review", {2026, 2, 20, 14, 0});
-                q.displayQuizInfo();
-            }
+            int semID = activeUser.getProfiles()[0].getSemesters()[0].getSemesterId();
+            Quiz q1(1, semID, "Linear Algebra", "Module 1-2", {0,30,14,1,2,2026});
+    Quiz q2(2, semID, "COA", "Processor", {0,30,14,24,2,2026});
+    Quiz q3(1, semID, "Linear Algebra", "Module 4-2", {0,30,14,27,2,2026});
+    Quiz::saveQuizToFile(q1);
+    Quiz::saveQuizToFile(q2);
+    Quiz::saveQuizToFile(q3);
+    
+            SmartSuggestion<Course>::generateSuggestions(courseList,semID,StudySession::getAllCourseTotals());
         }
         else if (userChoice == 6) return;
     }

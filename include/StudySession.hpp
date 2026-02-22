@@ -84,6 +84,9 @@ public:
     static double getCourseTotal(const std::string& course) {
         return courseTotalTime[course];
     }
+    static const std::map<std::string, double>& getAllCourseTotals() {
+    return courseTotalTime;
+}
 
     static double getDailyCourseTime(const std::string& course, const std::string& date) {
         return dailyCourseTime[course][date];

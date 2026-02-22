@@ -12,6 +12,7 @@ add_executable(StudyChronApp
     src/main.cpp
     src/DataHandler.cpp
     src/Interface.cpp
+    src/Quiz.cpp
 )
 
 # Link the tests folder
