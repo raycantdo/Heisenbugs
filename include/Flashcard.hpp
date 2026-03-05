@@ -8,6 +8,7 @@
 #include <algorithm>   // for std::transform (case conversion) and std::random_shuffle
 #include <cstdlib>     // for std::rand, std::srand (random number generation)
 #include <ctime>       // for std::time (seed for random)
+#include <random>
 
 using namespace std;   
 

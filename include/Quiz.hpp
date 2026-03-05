@@ -40,7 +40,7 @@ class Quiz:private Semester
     int getQuizID() const;
     string getCourseName() const;
     string getSyllabus() const;
-    const tm& Quiz::getQuizDate() const{
+    const tm& getQuizDate() const{
     return quizDate;   
 }
     void markDone() { done = true; }
