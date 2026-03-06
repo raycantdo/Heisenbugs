@@ -40,12 +40,13 @@ class Quiz:private Semester
     int getQuizID() const;
     string getCourseName() const;
     string getSyllabus() const;
-    const tm& Quiz::getQuizDate() const{
+    const tm& getQuizDate() const{
     return quizDate;   
 }
     void markDone() { done = true; }
     bool isDone() const { return done; }
     static void saveQuizToFile(const Quiz& q);
+    static void addNewQuiz(int semesterID);
 
 };
 #endif
