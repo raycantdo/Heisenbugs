@@ -46,6 +46,7 @@ class Quiz:private Semester
     void markDone() { done = true; }
     bool isDone() const { return done; }
     static void saveQuizToFile(const Quiz& q);
+    static void addNewQuiz(int semesterID);
 
 };
 #endif

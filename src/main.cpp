@@ -40,11 +40,10 @@ int main()
     }
     userDB.close();
 
-    // 2. Setup the User object
     User activeUser(userName.empty() ? "Guest" : userName);
     
     if (userName.empty()) {
-        // --- REGISTRATION MODE ---
+
         cout << "--- REGISTER ---\nName: "; getline(cin, userName);
         cout << "Major: "; getline(cin, majorName);
         cout << "Profile: "; getline(cin, profileName);
@@ -66,7 +65,7 @@ int main()
         // Re-add the courses we found in the file
         for (const string& cName : savedCourses)
         {
-            firstSemester.addCourse(cName, 3.0); // Assuming 3 credits default
+            firstSemester.addCourse(cName, 3.0); // 3 credits default
         }
         
         existingProfile.addSemester(firstSemester);

@@ -26,14 +26,13 @@ void displayTitle() {
  // reviewFlashcards(Helper Function) - Allows the user to review flashcards for a chosen course based on a course number
 void reviewFlashcards(User& activeUser) 
 {
-    // Access the user's course list assuming the user has at least one course and one semester---
+    // Access the user's course list assuming the user has at least one course and one semester
     auto& courseList = activeUser.getProfiles()[0].getSemesters()[0].getCourses();
 
-    // Check if there are any courses ---
     if (courseList.empty()) 
     {
         cout << "\nYou haven't added any courses yet. Please add a course first (Option 3).\n";
-        return; // Exit the function if no courses exist
+        return;
     }
 
     //  Display courses with numbers for selection ---
@@ -49,7 +48,7 @@ void reviewFlashcards(User& activeUser)
     cin >> choice;          // Read the number
     cin.ignore(1000, '\n'); // Clear the newline left in the input buffer
 
-    //  Validate the choice ---
+
     if (choice < 1 || choice > static_cast<int>(courseList.size()))
     {
         cout << "Invalid choice.\n";
@@ -59,7 +58,7 @@ void reviewFlashcards(User& activeUser)
     // Extract the chosen course name ---
     string courseName = courseList[choice - 1].getCourseName(); // Convert to 0-based index
 
-    //  Create a FlashcardManager and load flashcards for this course ---
+
     FlashcardManager fm; 
     if (fm.loadForCourse(courseName)) 
     {
@@ -76,7 +75,7 @@ void studyPortal(User& activeUser)
     while (true)
     {
         cout << "\n======= DASHBOARD =======" << endl;
-        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Flashcards\n7. Exit\nChoice: ";
+        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. Exit\nChoice: ";
         
         if (!(cin >> userChoice))
         {
@@ -87,6 +86,7 @@ void studyPortal(User& activeUser)
         cin.ignore(1000, '\n'); 
 
         auto& courseList = activeUser.getProfiles()[0].getSemesters()[0].getCourses();
+        int semID = activeUser.getProfiles()[0].getSemesters()[0].getSemesterId();
 
         if (userChoice == 1)
         {
@@ -113,7 +113,6 @@ void studyPortal(User& activeUser)
             cout << "Enter Course Name to Study: "; 
             getline(cin, courseName);
 
-            // Check if course is in the list ---
             bool courseFound = false;
             for (const auto& course : courseList)
             {
@@ -177,27 +176,25 @@ void studyPortal(User& activeUser)
                 else ++iterator;
             }
 
-            if (courseWasFound) saveData(activeUser); // Save changes to files
+            if (courseWasFound) saveData(activeUser);
             else cout << "Error: Course not found." << endl;
             
         }
         
-        else if(userChoice==5)
-        {
-            int semID = activeUser.getProfiles()[0].getSemesters()[0].getSemesterId();
-            Quiz q1(1, semID, "Linear Algebra", "Module 1-2", {0,30,14,1,2,2026});
-    Quiz q2(2, semID, "COA", "Processor", {0,30,14,24,2,2026});
-    Quiz q3(1, semID, "Linear Algebra", "Module 4-2", {0,30,14,27,2,2026});
-    Quiz::saveQuizToFile(q1);
-    Quiz::saveQuizToFile(q2);
-    Quiz::saveQuizToFile(q3);
-    
-            SmartSuggestion<Course>::generateSuggestions(courseList,semID,StudySession::getAllCourseTotals());
+        else if (userChoice == 5) {
+            SmartSuggestion<Course>::generateSuggestions(courseList, semID, StudySession::getAllCourseTotals());
         }
-        else if (userChoice == 6) 
-        {
-        reviewFlashcards(activeUser);
+  
+        else if (userChoice == 6) {
+            Quiz::addNewQuiz(semID);
         }
-        else if (userChoice == 7) return;
+
+        else if (userChoice == 7) {
+            reviewFlashcards(activeUser);
+        }
+
+        else if (userChoice == 8) {
+            return;
+        }
     }
 }
