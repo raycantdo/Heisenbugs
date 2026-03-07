@@ -20,10 +20,9 @@ class Quiz:private Semester
     struct tm quizDate;
 
     public:
-    Quiz(int id,int semID, string course, string syl, struct tm date) : Semester(semID), quizID(id), courseName(course), syllabus(syl), quizDate(date) ,done(false)
-    {
-        
-    }
+    
+    Quiz(int id,int semID, string course, string syl, struct tm date) : Semester(semID), quizID(id), courseName(course), syllabus(syl), quizDate(date) ,done(false){}
+    
     void displayQuizInfo() const
     {
         cout << "Quiz ID: " << quizID << "\nCourse: " << courseName << "\nSyllabus: " << syllabus 

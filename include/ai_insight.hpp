@@ -12,6 +12,7 @@
 #include "NoQuiz.hpp"
 #include "NoData.hpp"
 template<typename CourseType>
+
 class AIInsight
 {
 public:
@@ -19,18 +20,18 @@ public:
     static void generateInsights(
         const std::vector<StudySession>& sessions,
         const std::vector<CourseType>& courses,
-        int semesterID)
+        SmartSuggestion<CourseType>&sugg )
     {
         if(sessions.empty())
-            throw NoSessionLogged();
+            throw NoSession();
 
         if(courses.empty())
-            throw NoDataFound();
+            throw NoData();
 
         std::cout << "\n---- AI Study Insights ----\n\n";
          bestStudyTime(sessions);
             weakSubject(courses);
-            quizRiskWarning(courses, semesterID);
+            quizRiskWarning(sugg);
     }
     private:
     
@@ -65,52 +66,26 @@ public:
         << ".\n"
         "It is currently your least studied subject.\n\n";
     }
-     static void quizRiskWarning(
-        const std::vector<CourseType>& courses,
-        int semesterID)
+     static void quizRiskWarning(SmartSuggestion<CourseType>&sugg)
     {
-        bool found=false;
-        auto totals = StudySession::getAllCourseTotals();
-        time_t now = time(nullptr);
-
-        for(const auto& c : courses)
-        {
-            auto quizzes =
-                SmartSuggestion<CourseType>::loadQuizzes(
-                    semesterID, c.getCourseName());
-
-            for(const auto& q : quizzes)
-            {
-                tm date = q.getQuizDate();
-                time_t quizTime = mktime(&date);
-
-                double days =
-                    difftime(quizTime, now) / (60*60*24);
-
-                if(days <= 3 && days >= 0)
-                {
-                    double studied =
-                        StudySession::getCourseTotal(
-                            c.getCourseName());
-
-                    if(studied < 30)
-                    {
-                        std::cout <<
-                        "3.Quiz Risk Warning Insight:\n"
-                        "Your " << c.getCourseName()
-                        << " quiz is in "
-                        << (int)days
-                        << " days but you studied only "
-                        << studied
-                        << " minutes.\n"
-                        "Consider revising today.\n\n";
-                        found=true;
-                    }
-                }
-            }
-        }
-        if(!found)
+        
+       double studied=sugg.getfilluptime();
+       std::string coursename=sugg.get_warningCourse();
+        int remaining=sugg.getRemainingDays();
+        if(coursename=="")
             throw NoQuiz();
+        else{
+                std::cout << "3. Quiz Risk Warning Insight:\n"
+                          << "Your " << coursename
+                          << " quiz is in " << remaining
+                          << " days but you studied only "
+                          << studied << " minutes.\n"
+                          << "Consider revising today.\n\n";
+        }
+                
+         
+        
+        
     }
 
 };
