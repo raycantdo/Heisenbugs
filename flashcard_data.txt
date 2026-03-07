@@ -1,0 +1,2 @@
+What is a class?|A blueprint for objects
+What is inheritance?|Deriving a class from another class
