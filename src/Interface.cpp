@@ -27,7 +27,7 @@ void studyPortal(User& activeUser)
     while (true)
     {
         cout << "\n======= DASHBOARD =======" << endl;
-        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6.Exit\nChoice: ";
+        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6.Insight\n7.Exit\nChoice: ";
         
         if (!(cin >> userChoice))
         {
@@ -136,15 +136,15 @@ void studyPortal(User& activeUser)
         else if(userChoice==5)
         {
             int semID = activeUser.getProfiles()[0].getSemesters()[0].getSemesterId();
-            Quiz q1(1, semID, "Linear Algebra", "Module 1-2", {0,30,14,1,2,2026});
+            /*Quiz q1(1, semID, "Linear Algebra", "Module 1-2", {0,30,14,1,2,2026});
     Quiz q2(2, semID, "COA", "Processor", {0,30,14,24,2,2026});
     Quiz q3(1, semID, "Linear Algebra", "Module 4-2", {0,30,14,27,2,2026});
     Quiz::saveQuizToFile(q1);
     Quiz::saveQuizToFile(q2);
-    Quiz::saveQuizToFile(q3);
+    Quiz::saveQuizToFile(q3);*/
     
             SmartSuggestion<Course>::generateSuggestions(courseList,semID,StudySession::getAllCourseTotals());
         }
-        else if (userChoice == 6) return;
+        else if (userChoice == 7) return;
     }
 }
