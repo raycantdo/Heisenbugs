@@ -12,6 +12,7 @@
 #include<fstream>
 #include<sstream>
 #include<iomanip>
+#include <ToDoList.hpp>
 
 using namespace std;
 
@@ -75,12 +76,13 @@ void reviewFlashcards(User& activeUser)
 void studyPortal(User& activeUser)
 {
     vector<StudySession>sessions;
+    ToDoList userToDo(activeUser.getProfiles()[0].getProfileName());
     int userChoice;
     while (true)
     {
         SmartSuggestion<Course>sugg;
         cout << "\n======= DASHBOARD =======" << endl;
-        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9.Exit\nChoice: ";
+        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9. To Do List\n10. Exit\nChoice: ";
         
         if (!(cin >> userChoice))
         {
@@ -211,7 +213,56 @@ void studyPortal(User& activeUser)
             
         }
 
-        else if (userChoice == 9) {
+        else if (userChoice == 9) 
+        {
+            int todoChoice;
+            cout << "\n--- TO-DO LIST MANAGER ---" << endl;
+            userToDo.generate_progress_report();
+            
+            cout << "1. Add Task\n2. Mark Task Complete\n3. Remove Task\n4. Clear List\n5. Back to Dashboard\nChoice: ";
+            cin >> todoChoice;
+            cin.ignore(1000, '\n');
+
+            
+
+            if (todoChoice == 1)
+            {
+                string t, s, c;
+                cout << "Task Title: "; getline(cin, t);
+                cout << "Subject: "; getline(cin, s);
+                cout << "Category (Assignment/Project/Exam): "; getline(cin, c);
+                userToDo.add_task(t, s, c);
+                cout << "Task added successfully!" << endl;
+            }
+            else if (todoChoice == 2)
+            {
+                int id;
+                cout << "Enter Task ID to complete: "; cin >> id;
+                userToDo.mark_complete(id);
+            }
+            else if (todoChoice == 3)
+            {
+                int id;
+                cout << "Enter Task ID to remove: "; cin >> id;
+                userToDo.remove_task(id);
+            }
+            else if (todoChoice == 4)
+            {
+                userToDo.clear_tasks();
+                cout << "All tasks cleared!" << endl;
+            }
+            else if (todoChoice == 5)
+            {
+                continue; 
+            }
+            else
+            {
+                cout << "Invalid choice. Returning to dashboard." << endl;
+            }
+        }
+
+        else if (userChoice == 10)
+        {
             return;
         }
     }

@@ -1,6 +1,10 @@
+#ifndef TODOLIST_HPP
+#define TODOLIST_HPP
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <iomanip>
 #include <ctime>
 
 using namespace std;
@@ -35,7 +39,7 @@ private:
     time_t last_modified;
     int next_id;
 
-    static int total_lists_created;
+    static inline int total_lists_created = 0;
 
     // Helper: update modification time
     void updateModifiedTime() {
@@ -64,6 +68,34 @@ public:
         total_lists_created++;
     }
 
+
+    void displayTasks() const {
+        if (tasks.empty()) {
+            std::cout << "\n   [!] No tasks in your list yet." << std::endl;
+            return;
+        }
+
+        std::cout << "\n==================== YOUR TO-DO LIST ====================" << std::endl;
+        
+        std::cout << std::left 
+                << std::setw(5)  << "ID" 
+                << std::setw(18) << "TITLE" 
+                << std::setw(15) << "SUBJECT" 
+                << "STATUS" << std::endl;
+                
+        std::cout << "---------------------------------------------------------" << std::endl;
+
+        for (const auto& t : tasks) {
+            std::cout << std::left 
+                    << std::setw(5)  << t.id 
+                    << std::setw(18) << (t.title.length() > 15 ? t.title.substr(0, 15) + "..." : t.title)
+                    << std::setw(15) << t.subject
+                    << (t.completed ? "[X]" : "[ ]") 
+                    << std::endl;
+        }
+        std::cout << "=========================================================\n" << std::endl;
+    }
+
     // Static getter
     static int getTotalListsCreated() {
         return total_lists_created;
@@ -82,6 +114,11 @@ public:
             tasks.erase(tasks.begin() + index);
             updateModifiedTime();
         }
+    }
+
+    void clear_tasks() {
+        tasks.clear();
+        updateModifiedTime();
     }
 
     // Update task title
@@ -198,6 +235,7 @@ public:
 
     // Generate progress report
     void generate_progress_report() const {
+        displayTasks();
         cout << "\nOwner: " << owner << endl;
         cout << "Total Tasks: " << tasks.size() << endl;
         cout << "Completion Rate: "
@@ -208,4 +246,6 @@ public:
 };
 
 // Initialize static variable
-int ToDoList::total_lists_created = 0;
+//int ToDoList::total_lists_created = 0;
+//initialized using inline in class definition
+#endif
