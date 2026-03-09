@@ -128,8 +128,8 @@ public:
            
 
             for (const auto& [c, q] : upcoming) {
-                q.displayQuizInfo();
-                
+                //q.displayQuizInfo();
+                cout << q << endl; // << operator overloaded for displaying quiz info
                 double studied = 0.0;
                 auto it = studyTime.find(c.getCourseName());
                 if (it != studyTime.end()) studied = it->second;

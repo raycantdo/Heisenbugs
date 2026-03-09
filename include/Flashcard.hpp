@@ -33,7 +33,7 @@ public:
      // Displays the question, waits for the user's answer, and checks correctness.
 
     void ask() const 
-{
+    {
     
         cout << "\n❓ " << question << "\nYour answer: ";
 
@@ -79,7 +79,7 @@ public:
      * @return true if at least one flashcard was loaded, false if file couldn't be opened or no valid cards.
      */
     bool loadForCourse(const string& courseName) 
-{
+    {
         // Build the filename based on the course name
         string filename = "flashcards_" + courseName + ".txt";
 
