@@ -20,18 +20,18 @@ class Quiz:private Semester
     struct tm quizDate;
 
     public:
-    Quiz(int id,int semID, string course, string syl, struct tm date) : Semester(semID), quizID(id), courseName(course), syllabus(syl), quizDate(date) ,done(false)
-    {
-        
-    }
+    
+    Quiz(int id,int semID, string course, string syl, struct tm date) : Semester(semID), quizID(id), courseName(course), syllabus(syl), quizDate(date) ,done(false){}
+    
     void displayQuizInfo() const
     {
         cout << "Quiz ID: " << quizID << "\nCourse: " << courseName << "\nSyllabus: " << syllabus 
-             << "\nDate: " << (quizDate.tm_year) << "-" << (quizDate.tm_mon) << "-" << quizDate.tm_mday << endl;
+            // Add 1900 to year and 1 to month for proper display
+            << "\nDate: " << (quizDate.tm_year + 1900) << "-" 
+            << (quizDate.tm_mon + 1) << "-" << quizDate.tm_mday << endl;
         
-        cout<<"Quiz time: "<<quizDate.tm_hour<<":"<<quizDate.tm_min<<endl;
-        cout<<"Semester "<<getSemesterId()<<endl;
-       
+        cout << "Quiz time: " << quizDate.tm_hour << ":" << quizDate.tm_min << endl;
+        cout << "Semester " << getSemesterId() << endl;
     }
     void setquizDate(struct tm date)
     {

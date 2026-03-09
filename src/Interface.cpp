@@ -8,7 +8,10 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-
+#include "ai_insight.hpp"
+#include<fstream>
+#include<sstream>
+#include<iomanip>
 
 using namespace std;
 
@@ -71,11 +74,13 @@ void reviewFlashcards(User& activeUser)
 
 void studyPortal(User& activeUser)
 {
+    vector<StudySession>sessions;
     int userChoice;
     while (true)
     {
+        SmartSuggestion<Course>sugg;
         cout << "\n======= DASHBOARD =======" << endl;
-        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. Exit\nChoice: ";
+        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9.Exit\nChoice: ";
         
         if (!(cin >> userChoice))
         {
@@ -87,7 +92,7 @@ void studyPortal(User& activeUser)
 
         auto& courseList = activeUser.getProfiles()[0].getSemesters()[0].getCourses();
         int semID = activeUser.getProfiles()[0].getSemesters()[0].getSemesterId();
-
+        
         if (userChoice == 1)
         {
             cout << "\n--- STUDY STATISTICS ---" << endl;
@@ -129,6 +134,7 @@ void studyPortal(User& activeUser)
                 cout << "Timer started for " << courseName << "! Press Enter to STOP..."; 
                 cin.get(); 
                 session.endSession();
+                sessions.push_back(session);
                 saveData(activeUser);
                 cout << "Session saved successfully!" << endl;
             }
@@ -182,7 +188,7 @@ void studyPortal(User& activeUser)
         }
         
         else if (userChoice == 5) {
-            SmartSuggestion<Course>::generateSuggestions(courseList, semID, StudySession::getAllCourseTotals());
+            sugg.generateSuggestions(courseList, semID, StudySession::getAllCourseTotals());
         }
   
         else if (userChoice == 6) {
@@ -192,8 +198,20 @@ void studyPortal(User& activeUser)
         else if (userChoice == 7) {
             reviewFlashcards(activeUser);
         }
+        else if(userChoice==8)
+        {
+            try
+            {
+                AIInsight<Course>::generateInsights(sessions,courseList,sugg);
+            }
+            catch(const InsightException& e)
+            {
+                std::cerr << e.what() << '\n';
+            }
+            
+        }
 
-        else if (userChoice == 8) {
+        else if (userChoice == 9) {
             return;
         }
     }

@@ -9,12 +9,11 @@ class Course
 private:
     std::string courseName;
     float courseCredits;
+
 public:
     Course(std::string name, float credits) : courseName(name), courseCredits(credits) {}
 
-    
-
-    void setName(const std::string& name)
+    void setName(const std::string &name)
     {
         courseName = name;
     }
@@ -36,5 +35,6 @@ public:
     {
         std::cout << "Course Name: " << courseName << ", Credits: " << courseCredits << std::endl;
     }
+    
 };
 #endif

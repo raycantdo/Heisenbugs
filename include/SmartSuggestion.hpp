@@ -5,87 +5,15 @@
 #include <iostream>
 #include "Quiz.hpp"
 #include "StudySession.hpp"
+#include <ctime>
 
 template<typename CourseType>
+
 class SmartSuggestion {
-public:
-
-    static CourseType findLeastStudied(
-        const std::vector<CourseType>& courses,
-        const std::map<std::string,double>& studyTime)
-    {
-        CourseType weakest = courses[0];
-        double minTime = getTime(weakest, studyTime);
-
-        for(const auto& c : courses){
-            double t = getTime(c, studyTime);
-            if(t < minTime){
-                minTime = t;
-                weakest = c;
-            }
-        }
-        return weakest;
-    }
-
-
-    static std::vector<CourseType> upcomingQuizzes(
-        const std::vector<CourseType>& courses,int semesterID)
-    {
-        std::vector<CourseType> result;
-
-        for(const auto& c : courses){
-            auto quizzes = loadQuizzes(semesterID, c.getCourseName());
-            if(!quizzes.empty()) {   
-                result.push_back(c);
-            }
-        }
-        return result;
-    }
-    static void generateSuggestions(
-        const std::vector<CourseType>& courses,
-        int semesterID,
-        const std::map<std::string, double>& studyTime) 
-    {
-
-        auto weakCourse = findLeastStudied(courses, studyTime);
-        std::cout << "\n> Suggestion: You should focus more on: " << weakCourse.getCourseName() << "\n";
-
-
-        std::vector<std::pair<CourseType, Quiz>> upcoming;
-        
-        for (const auto& c : courses) {
-            std::vector<Quiz> quizzes = loadQuizzes(semesterID, c.getCourseName());
-            for (const auto& q : quizzes) {
-                upcoming.push_back({c, q});
-            }
-        }
-
-        if (!upcoming.empty()) {
-            std::cout << "\n---- Upcoming Quizzes (Sorted by Date) ----\n";
-
-            std::sort(upcoming.begin(), upcoming.end(), [](auto& a, auto& b) {
-                tm aCopy = a.second.getQuizDate();
-                tm bCopy = b.second.getQuizDate();
-                return mktime(&aCopy) < mktime(&bCopy);
-            });
-
-            for (const auto& [c, q] : upcoming) {
-                q.displayQuizInfo();
-                
-                double studied = 0.0;
-                auto it = studyTime.find(c.getCourseName());
-                if (it != studyTime.end()) studied = it->second;
-
-                std::cout << "Progress: " << studied << " minutes studied.\n";
-                std::cout << "-------------------------------------------\n";
-            }
-        } else {
-            std::cout << "No upcoming quizzes found.\n";
-        }
-    }
-
 private:
-
+    string warning_course;
+    double fillup_time;
+    int remainingDay;
     
     static double getTime(const CourseType& c,
                           const std::map<std::string,double>& studyTime)
@@ -132,4 +60,99 @@ private:
         }
         return quizzes;
     }
+public:
+    string get_warningCourse()
+    {
+        return warning_course;
+    }
+    double getfilluptime()
+    {
+        return fillup_time;
+    }
+    int getRemainingDays()
+    {
+        return remainingDay;
+    }
+    void set_warningCourse()
+    {
+        warning_course="";
+    }
+  
+    static CourseType findLeastStudied(
+        const std::vector<CourseType>& courses,
+        const std::map<std::string,double>& studyTime)
+    {
+        CourseType weakest = courses[0];
+        double minTime = getTime(weakest, studyTime);
+
+        for(const auto& c : courses){
+            double t = getTime(c, studyTime);
+            if(t < minTime){
+                minTime = t;
+                weakest = c;
+            }
+        }
+        return weakest;
+    }
+    
+    
+
+    
+    
+    void generateSuggestions(
+        const std::vector<CourseType>& courses,
+        int semesterID,
+        const std::map<std::string, double>& studyTime) 
+    {
+
+        auto weakCourse = findLeastStudied(courses, studyTime);
+        std::cout << "\n> Suggestion: You should focus more on: " << weakCourse.getCourseName() << "\n";
+
+       std::vector<std::pair<CourseType, Quiz>> upcoming;
+        
+        
+        for (const auto& c : courses) {
+            std::vector<Quiz> quizzes = loadQuizzes(semesterID, c.getCourseName());
+            for (const auto& q : quizzes) {
+                 upcoming.push_back({c, q});
+            }
+        }
+
+        if (!upcoming.empty()) {
+            std::cout << "\n---- Upcoming Quizzes (Sorted by Date) ----\n";
+             std::sort(upcoming.begin(), upcoming.end(), [](auto& a, auto& b) {
+                tm aCopy = a.second.getQuizDate();
+                tm bCopy = b.second.getQuizDate();
+                return mktime(&aCopy) < mktime(&bCopy);
+            });
+           
+
+            for (const auto& [c, q] : upcoming) {
+                q.displayQuizInfo();
+                
+                double studied = 0.0;
+                auto it = studyTime.find(c.getCourseName());
+                if (it != studyTime.end()) studied = it->second;
+
+                std::cout << "Progress: " << studied << " minutes studied.\n";
+                std::cout << "-------------------------------------------\n";
+                time_t now = time(nullptr);
+                 tm date = q.getQuizDate();
+            time_t quizTime = mktime(&date);
+            double days = difftime(quizTime, now) / (60 * 60 * 24);
+            if(days<=3 && days>=0 && studied<30)
+            {
+                warning_course=c.getCourseName();
+                fillup_time=studied;
+                remainingDay=days;
+            }
+
+            }
+        } else {
+            std::cout << "No upcoming quizzes found.\n";
+        }
+
+    }
+
+
 };
