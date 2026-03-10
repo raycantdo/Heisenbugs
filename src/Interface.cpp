@@ -12,7 +12,8 @@
 #include<fstream>
 #include<sstream>
 #include<iomanip>
-#include <ToDoList.hpp>
+#include "ToDoList.hpp"
+ 
 
 using namespace std;
 
@@ -82,7 +83,7 @@ void studyPortal(User& activeUser)
     {
         SmartSuggestion<Course>sugg;
         cout << "\n======= DASHBOARD =======" << endl;
-        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9. To Do List\n10. Exit\nChoice: ";
+        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9. To Do List\n10. File Options\n11. Exit\nChoice: ";
         
         if (!(cin >> userChoice))
         {
@@ -216,53 +217,218 @@ void studyPortal(User& activeUser)
         else if (userChoice == 9) 
         {
             int todoChoice;
-            cout << "\n--- TO-DO LIST MANAGER ---" << endl;
-            userToDo.generate_progress_report();
-            
-            cout << "1. Add Task\n2. Mark Task Complete\n3. Remove Task\n4. Clear List\n5. Back to Dashboard\nChoice: ";
-            cin >> todoChoice;
-            cin.ignore(1000, '\n');
+            do {
+                cout << "\n========== TO-DO LIST MANAGER ==========" << endl;
+                userToDo.generate_progress_report();
+                
+                cout << "\n--- TASK MANAGEMENT ---" << endl;
+                cout << "1. Add Task" << endl;
+                cout << "2. Mark Task Complete" << endl;
+                cout << "3. Mark Task Incomplete" << endl;
+                cout << "4. Remove Task" << endl;
+                cout << "5. Set Priority (1=Low, 2=Medium, 3=High)" << endl;
+                cout << "6. Add Study Time" << endl;
+                cout << "7. Add Deadline" << endl;
+                cout << "8. Sort Tasks" << endl;
+                cout << "9. Show Overdue Tasks" << endl;
+                cout << "10. Clear All Tasks" << endl;
+                
+                cout << "\n--- FILE HANDLING ---" << endl;
+                cout << "11. Save To-Do List" << endl;
+                cout << "12. Load To-Do List" << endl;
+                cout << "13. Export as CSV" << endl;
+                cout << "14. Save as Simple Format" << endl;
+                cout << "15. Load Simple Format" << endl;
+                
+                cout << "\n0. Back to Dashboard" << endl;
+                cout << "Choice: ";
+                
+                cin >> todoChoice;
+                cin.ignore(1000, '\n');
 
-            
-
-            if (todoChoice == 1)
-            {
-                string t, s, c;
-                cout << "Task Title: "; getline(cin, t);
-                cout << "Subject: "; getline(cin, s);
-                cout << "Category (Assignment/Project/Exam): "; getline(cin, c);
-                userToDo.add_task(t, s, c);
-                cout << "Task added successfully!" << endl;
-            }
-            else if (todoChoice == 2)
-            {
-                int id;
-                cout << "Enter Task ID to complete: "; cin >> id;
-                userToDo.mark_complete(id);
-            }
-            else if (todoChoice == 3)
-            {
-                int id;
-                cout << "Enter Task ID to remove: "; cin >> id;
-                userToDo.remove_task(id);
-            }
-            else if (todoChoice == 4)
-            {
-                userToDo.clear_tasks();
-                cout << "All tasks cleared!" << endl;
-            }
-            else if (todoChoice == 5)
-            {
-                continue; 
-            }
-            else
-            {
-                cout << "Invalid choice. Returning to dashboard." << endl;
-            }
+                switch(todoChoice) {
+                    case 1: {
+                        string t, s, c;
+                        cout << "Task Title: "; getline(cin, t);
+                        cout << "Subject: "; getline(cin, s);
+                        cout << "Category (Assignment/Project/Exam): "; getline(cin, c);
+                        userToDo.add_task(t, s, c);
+                        cout << "✅ Task added successfully!" << endl;
+                        break;
+                    }
+                    case 2: {
+                        int id;
+                        cout << "Enter Task ID to complete: "; cin >> id;
+                        userToDo.mark_complete(id);
+                        cout << "✅ Task marked complete!" << endl;
+                        break;
+                    }
+                    case 3: {
+                        int id;
+                        cout << "Enter Task ID to mark incomplete: "; cin >> id;
+                        userToDo.mark_incomplete(id);
+                        cout << "✅ Task marked incomplete!" << endl;
+                        break;
+                    }
+                    case 4: {
+                        int id;
+                        cout << "Enter Task ID to remove: "; cin >> id;
+                        userToDo.remove_task(id);
+                        cout << "✅ Task removed!" << endl;
+                        break;
+                    }
+                    case 5: {
+                        int id, priority;
+                        cout << "Enter Task ID: "; cin >> id;
+                        cout << "Enter Priority (1=Low, 2=Medium, 3=High): "; cin >> priority;
+                        if (priority >= 1 && priority <= 3) {
+                            userToDo.set_priority(id, priority);
+                            cout << "✅ Priority updated!" << endl;
+                        } else {
+                            cout << "❌ Invalid priority!" << endl;
+                        }
+                        break;
+                    }
+                    case 6: {
+                        int id; double hours;
+                        cout << "Enter Task ID: "; cin >> id;
+                        cout << "Enter study hours to add: "; cin >> hours;
+                        userToDo.add_study_time(id, hours);
+                        cout << "✅ Study time added!" << endl;
+                        break;
+                    }
+                    case 7: {
+                        int id; int days;
+                        cout << "Enter Task ID: "; cin >> id;
+                        cout << "Enter deadline (days from now): "; cin >> days;
+                        time_t deadline = time(0) + (days * 24 * 60 * 60);
+                        userToDo.add_deadline(id, deadline);
+                        cout << "✅ Deadline added!" << endl;
+                        break;
+                    }
+                    case 8: {
+                        int sortChoice;
+                        cout << "Sort by:\n1. Priority\n2. Deadline\n3. Subject\nChoice: ";
+                        cin >> sortChoice;
+                        if (sortChoice == 1) userToDo.sort_by_priority();
+                        else if (sortChoice == 2) userToDo.sort_by_deadline();
+                        else if (sortChoice == 3) userToDo.sort_by_subject();
+                        cout << "✅ Tasks sorted!" << endl;
+                        break;
+                    }
+                    case 9: {
+                        vector<int> overdue = userToDo.get_overdue_tasks();
+                        if (overdue.empty()) {
+                            cout << "🎉 No overdue tasks!" << endl;
+                        } else {
+                            cout << "⚠️ Overdue Tasks: ";
+                            for (int id : overdue) cout << id << " ";
+                            cout << endl;
+                        }
+                        break;
+                    }
+                    case 10: {
+                        char confirm;
+                        cout << "Are you sure? (y/n): "; cin >> confirm;
+                        if (confirm == 'y' || confirm == 'Y') {
+                            userToDo.clear_tasks();
+                            cout << "✅ All tasks cleared!" << endl;
+                        }
+                        break;
+                    }
+                    case 11: {
+                        string filename;
+                        cout << "Enter filename to save (default: todo.dat): ";
+                        getline(cin, filename);
+                        if (filename.empty()) filename = "todo.dat";
+                        userToDo.saveToFile(filename);
+                        break;
+                    }
+                    case 12: {
+                        string filename;
+                        cout << "Enter filename to load: "; getline(cin, filename);
+                        try {
+                            userToDo.loadFromFile(filename);
+                        } catch (const exception& e) {
+                            cout << "❌ Error: " << e.what() << endl;
+                        }
+                        break;
+                    }
+                    case 13: {
+                        string filename;
+                        cout << "Enter CSV filename (default: todo.csv): ";
+                        getline(cin, filename);
+                        if (filename.empty()) filename = "todo.csv";
+                        userToDo.exportToCSV(filename);
+                        break;
+                    }
+                    case 14: {
+                        string filename;
+                        cout << "Enter filename for simple format: ";
+                        getline(cin, filename);
+                        userToDo.saveToSimpleFormat(filename);
+                        break;
+                    }
+                    case 15: {
+                        string filename;
+                        cout << "Enter simple format filename to load: ";
+                        getline(cin, filename);
+                        try {
+                            userToDo.loadFromSimpleFormat(filename);
+                        } catch (const exception& e) {
+                            cout << "❌ Error: " << e.what() << endl;
+                        }
+                        break;
+                    }
+                    case 0:
+                        cout << "Returning to dashboard..." << endl;
+                        break;
+                    default:
+                        cout << "❌ Invalid choice!" << endl;
+                }
+            } while (todoChoice != 0);
         }
 
-        else if (userChoice == 10)
+        else if (userChoice == 10)  // File Options
         {
+            int fileChoice;
+            cout << "\n========== FILE OPTIONS ==========" << endl;
+            cout << "1. Save To-Do List" << endl;
+            cout << "2. Load To-Do List" << endl;
+            cout << "3. Export as CSV" << endl;
+            cout << "4. Back to Dashboard" << endl;
+            cout << "Choice: ";
+            cin >> fileChoice;
+            cin.ignore(1000, '\n');
+            
+            if (fileChoice == 1) {
+                string filename;
+                cout << "Enter filename to save: ";
+                getline(cin, filename);
+                userToDo.saveToFile(filename);
+            }
+            else if (fileChoice == 2) {
+                string filename;
+                cout << "Enter filename to load: ";
+                getline(cin, filename);
+                try {
+                    userToDo.loadFromFile(filename);
+                } catch (const exception& e) {
+                    cout << "❌ Error: " << e.what() << endl;
+                }
+            }
+            else if (fileChoice == 3) {
+                string filename;
+                cout << "Enter CSV filename: ";
+                getline(cin, filename);
+                userToDo.exportToCSV(filename);
+            }
+        }
+        else if (userChoice == 11)  // Exit
+        {
+            // Auto-save before exit
+            userToDo.saveToFile("todo.dat");
+            cout << "✅ To-Do list saved. Goodbye!" << endl;
             return;
         }
     }
