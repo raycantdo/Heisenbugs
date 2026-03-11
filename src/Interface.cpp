@@ -13,7 +13,7 @@
 #include<sstream>
 #include<iomanip>
 #include "ToDoList.hpp"
- 
+ #include "breakR.hpp"
 
 using namespace std;
 
@@ -77,13 +77,18 @@ void reviewFlashcards(User& activeUser)
 void studyPortal(User& activeUser)
 {
     vector<StudySession>sessions;
+    breakR b;
     ToDoList userToDo(activeUser.getProfiles()[0].getProfileName());
+    
+    
+    
+    
     int userChoice;
     while (true)
     {
         SmartSuggestion<Course>sugg;
         cout << "\n======= DASHBOARD =======" << endl;
-        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9. To Do List\n10. File Options\n11. Exit\nChoice: ";
+        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9. To Do List\n10. Exit\nChoice: ";
         
         if (!(cin >> userChoice))
         {
@@ -133,9 +138,11 @@ void studyPortal(User& activeUser)
             if (courseFound)
             {
                 StudySession session(courseName, MIDTERM, 1);
+                session.setBreakptr(&b);
                 session.startSession();
-                cout << "Timer started for " << courseName << "! Press Enter to STOP..."; 
-                cin.get(); 
+                
+                //cout << "Timer started for " << courseName;// << "! Press Enter to STOP..."; 
+                //cin.get(); 
                 session.endSession();
                 sessions.push_back(session);
                 saveData(activeUser);
@@ -260,6 +267,7 @@ void studyPortal(User& activeUser)
                         int id;
                         cout << "Enter Task ID to complete: "; cin >> id;
                         userToDo.mark_complete(id);
+                        b.taskCompleted(userToDo.getCompletedTaskCount());
                         cout << "✅ Task marked complete!" << endl;
                         break;
                     }
@@ -294,7 +302,7 @@ void studyPortal(User& activeUser)
                         cout << "Enter Task ID: "; cin >> id;
                         cout << "Enter study hours to add: "; cin >> hours;
                         userToDo.add_study_time(id, hours);
-                        cout << "✅ Study time added!" << endl;
+                        cout << "Study time added!" << endl;
                         break;
                     }
                     case 7: {
@@ -303,7 +311,7 @@ void studyPortal(User& activeUser)
                         cout << "Enter deadline (days from now): "; cin >> days;
                         time_t deadline = time(0) + (days * 24 * 60 * 60);
                         userToDo.add_deadline(id, deadline);
-                        cout << "✅ Deadline added!" << endl;
+                        cout << "Deadline added!" << endl;
                         break;
                     }
                     case 8: {
@@ -313,15 +321,15 @@ void studyPortal(User& activeUser)
                         if (sortChoice == 1) userToDo.sort_by_priority();
                         else if (sortChoice == 2) userToDo.sort_by_deadline();
                         else if (sortChoice == 3) userToDo.sort_by_subject();
-                        cout << "✅ Tasks sorted!" << endl;
+                        cout << "Tasks sorted!" << endl;
                         break;
                     }
                     case 9: {
                         vector<int> overdue = userToDo.get_overdue_tasks();
                         if (overdue.empty()) {
-                            cout << "🎉 No overdue tasks!" << endl;
+                            cout << "No overdue tasks!" << endl;
                         } else {
-                            cout << "⚠️ Overdue Tasks: ";
+                            cout << "Overdue Tasks: ";
                             for (int id : overdue) cout << id << " ";
                             cout << endl;
                         }
@@ -389,45 +397,12 @@ void studyPortal(User& activeUser)
             } while (todoChoice != 0);
         }
 
-        else if (userChoice == 10)  // File Options
-        {
-            int fileChoice;
-            cout << "\n========== FILE OPTIONS ==========" << endl;
-            cout << "1. Save To-Do List" << endl;
-            cout << "2. Load To-Do List" << endl;
-            cout << "3. Export as CSV" << endl;
-            cout << "4. Back to Dashboard" << endl;
-            cout << "Choice: ";
-            cin >> fileChoice;
-            cin.ignore(1000, '\n');
-            
-            if (fileChoice == 1) {
-                string filename;
-                cout << "Enter filename to save: ";
-                getline(cin, filename);
-                userToDo.saveToFile(filename);
-            }
-            else if (fileChoice == 2) {
-                string filename;
-                cout << "Enter filename to load: ";
-                getline(cin, filename);
-                try {
-                    userToDo.loadFromFile(filename);
-                } catch (const exception& e) {
-                    cout << "❌ Error: " << e.what() << endl;
-                }
-            }
-            else if (fileChoice == 3) {
-                string filename;
-                cout << "Enter CSV filename: ";
-                getline(cin, filename);
-                userToDo.exportToCSV(filename);
-            }
-        }
-        else if (userChoice == 11)  // Exit
+        
+        else if (userChoice == 10)  // Exit
         {
             // Auto-save before exit
             userToDo.saveToFile("todo.dat");
+            showHydrationReport(b);
             cout << "✅ To-Do list saved. Goodbye!" << endl;
             return;
         }
