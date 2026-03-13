@@ -44,15 +44,15 @@ public:
 
     void startSession()
     {
-        //startTime = time(nullptr);
-        auto startTime = std::chrono::steady_clock::now();
+        startTime = time(nullptr);
+        auto startT = std::chrono::steady_clock::now();
         isRunning = true;
         std::cout << "Started studying " << courseName << std::endl;
         cout << "Timer started for " << courseName << "! Press enter to STOP...\n";
-        while(isRunning)
+        while(1)
         {
             auto now = std::chrono::steady_clock::now();
-            int minutes = std::chrono::duration_cast<std::chrono::minutes>(now - startTime).count();
+            int minutes = std::chrono::duration_cast<std::chrono::minutes>(now - startT).count();
             
             
             
@@ -69,7 +69,7 @@ public:
            if(_kbhit()) {
             char c = _getch();
             if(c == '\r' || c == 'q') { // Enter or q
-                isRunning = false;
+                break;
             }
             else if(c == 'd' || c == 'D')
             {

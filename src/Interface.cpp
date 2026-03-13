@@ -141,7 +141,7 @@ void studyPortal(User& activeUser)
                 session.setBreakptr(&b);
                 session.startSession();
                 
-                //cout << "Timer started for " << courseName;// << "! Press Enter to STOP..."; 
+                //cout << "Timer started for " << courseName<< "! Press Enter to STOP..."; 
                 //cin.get(); 
                 session.endSession();
                 sessions.push_back(session);
