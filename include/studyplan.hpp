@@ -1,5 +1,5 @@
-#ifndef STUDYPLAN_H
-#define STUDYPLAN_H
+#ifndef STUDYPLAN_HPP
+#define STUDYPLAN_HPP
 
 #include <iostream>
 #include <string>
@@ -65,11 +65,13 @@ private:
     
 public:
     Topic() : name(""), courseName(""), estimatedHours(0), 
-              actualHours(0), status("Planned") {}
+          actualHours(0), status("Planned"),
+          scheduledDate(1, 1, 1900) {}
     
     Topic(string n, string course, int hours) 
-        : name(n), courseName(course), estimatedHours(hours), 
-          actualHours(0), status("Planned") {}
+    : name(n), courseName(course), estimatedHours(hours), 
+      actualHours(0), status("Planned"),
+      scheduledDate(1, 1, 1900) {}
     
     // Getters
     string getName() const { return name; }
