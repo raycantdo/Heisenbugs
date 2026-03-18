@@ -1,4 +1,3 @@
 ID,Title,Subject,Category,Priority,Deadline,Completed,Study Hours
-3,"Processor","COA","Exam",MEDIUM,0,No,0
-2,"EEE Lab","EEE 4308","Exam",MEDIUM,0,No,0
-1,"OO{ {roject","OOP","Project",MEDIUM,1774510634,No,1
+1,"Add routine and reminder for get ready and goto class","OOP","Project",MEDIUM,0,No,0
+2,"add syllabus and calculate percentage of how much is left to study","OOP","Project",MEDIUM,0,No,0

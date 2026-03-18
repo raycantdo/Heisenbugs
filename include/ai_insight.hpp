@@ -29,9 +29,9 @@ public:
             throw NoData();
 
         std::cout << "\n---- AI Study Insights ----\n\n";
-         bestStudyTime(sessions);
-            weakSubject(courses);
-            quizRiskWarning(sugg);
+        bestStudyTime(sessions);
+        weakSubject(courses);
+    quizRiskWarning(sugg);
     }
     private:
     
@@ -72,7 +72,7 @@ public:
        double studied=sugg.getfilluptime();
        std::string coursename=sugg.get_warningCourse();
         int remaining=sugg.getRemainingDays();
-        if(coursename=="")
+        if(coursename.empty())
             throw NoQuiz();
         else{
                 std::cout << "3. Quiz Risk Warning Insight:\n"
