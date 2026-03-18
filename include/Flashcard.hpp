@@ -146,12 +146,12 @@ public:
         }
 
         // Seed the random number generator with the current time
-        srand(static_cast<unsigned>(time(nullptr)));
-        //unsigned seed=0;
+        //srand(static_cast<unsigned>(time(nullptr)));
+        unsigned seed=0;
 
-        // Shuffle the indices to randomize the order of questions
-       random_shuffle(indices.begin(), indices.end());
-        //shuffle(indices.begin(), indices.end(),default_random_engine(seed));
+         //Shuffle the indices to randomize the order of questions
+       //random_shuffle(indices.begin(), indices.end());
+        shuffle(indices.begin(), indices.end(),default_random_engine(seed));
 
         // Start the quiz
         cout << "\n=== Flashcard Quiz ===\n";

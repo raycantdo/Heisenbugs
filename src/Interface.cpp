@@ -16,6 +16,8 @@
  #include "breakR.hpp"
 #include "StudyPlan.hpp"
 #include "StreakTracker.hpp"
+#include "Routine.hpp"
+#include "class.hpp"
 
 using namespace std;
 
@@ -318,13 +320,13 @@ void studyPortal(User& activeUser)
     try { streakTracker.loadFromFile(streakFile); }
     catch (...) { /* no existing file yet — start fresh */ }
     // ─────────────────────────────────────────────────────────────────────────
-
+    SmartSuggestion<Course> sugg;
     int userChoice;
     while (true)
     {
-        SmartSuggestion<Course> sugg;
+        
         cout << "\n======= DASHBOARD =======" << endl;
-        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9. To Do List\n10. Study Plan\n11. Streak Tracker\n12. Exit\nChoice: ";
+        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9. To Do List\n10. Study Plan\n11. Streak Tracker\n12. Routine\n13. Exit\nChoice: ";
         
         if (!(cin >> userChoice))
         {
@@ -642,8 +644,39 @@ void studyPortal(User& activeUser)
         {
             streakTrackerPortal(streakTracker, streakFile);
         }
+         else if (userChoice == 12)
+        {
+            Routine<Quiz> examRoutine;
+            auto quizzes = sugg.getAllQuizzes(courseList, semID);
+            for (const auto &q : quizzes)
+            {
+                examRoutine.addItem(q);
+            }
+            int d, m, y, hr, min;
+            cout << "Date (DD MM YYYY): ";
+            cin >> d >> m >> y;
+            cout << "Time (HH MM 24hr format): ";
+            cin >> hr >> min;
 
-        else if (userChoice == 12)  // Exit
+            // tm_mon is 0-11, tm_year is years since 1900
+            tm dateObj = {0};
+            dateObj.tm_mday = d;
+            dateObj.tm_mon = m ;
+            dateObj.tm_year = y ;
+            dateObj.tm_hour = hr;
+            dateObj.tm_min = min;
+            examRoutine.addItem(Quiz(1, semID, "EEE", "Chap5", dateObj));
+
+            Routine<ClassSession> classRoutine;
+            classRoutine.addItem(ClassSession("COA", 1, 9, 15));
+            classRoutine.addItem(ClassSession("Linear Algebra", 1, 14, 30));
+            classRoutine.addItem(ClassSession("OOP", 2, 11, 30));
+            classRoutine.sortRoutine([](const ClassSession &a, const ClassSession &b)
+                                     { return a.getday() < b.getday(); });
+            examRoutine.showRoutine();
+            classRoutine.showRoutine();
+        }
+        else if (userChoice == 13)  // Exit
         {
             userToDo.saveToFile("todo.dat");
             // ── Auto-save streaks on exit ────────────────────────────────────
