@@ -375,7 +375,7 @@ void studyPortal(User& activeUser)
                 session.endSession();
                 sessions.push_back(session);
                 saveData(activeUser);
-                cout << "Session saved successfully!" << endl;
+                cout << "Session saved successfully!\n" << endl;
 
                 // ── Auto-record streak + auto-save ───────────────────────────
                 try {
@@ -673,7 +673,9 @@ void studyPortal(User& activeUser)
             classRoutine.addItem(ClassSession("OOP", 2, 11, 30));
             classRoutine.sortRoutine([](const ClassSession &a, const ClassSession &b)
                                      { return a.getday() < b.getday(); });
+            cout<<"---------EXAM ROUTINE----------\n";
             examRoutine.showRoutine();
+            cout<<"\n---------CLASS ROUTINE----------\n";
             classRoutine.showRoutine();
         }
         else if (userChoice == 13)  // Exit

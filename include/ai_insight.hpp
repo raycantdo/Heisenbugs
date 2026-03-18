@@ -5,7 +5,7 @@
 #include <cmath>
 #include "StudySession.hpp"
 #include "SmartSuggestion.hpp"
-#include "FocusTimeAnalyzer.hpp"
+#include "avgSession.hpp"
 #include "Quiz.hpp"
 #include "InsightException.hpp"
 #include "NoSession.hpp"
@@ -40,13 +40,13 @@ public:
     static void bestStudyTime(const std::vector<StudySession>& sessions)
     {
          std::cout <<
-        "1. Best Study Time Insight:\nYour ";
-        FocusTimeAnalyzer focus;
-        focus.analyze(sessions);
+        "1. Best Study Time Insight:\n\nYour ";
+        avgSession a;
+        a.analyze(sessions);
 
        
         
-        std::cout<<"Consider scheduling difficult subjects then.\n\n";
+        std::cout<<"Consider scheduling difficult subjects in focus period.\n\n";
     }
     static void weakSubject(const std::vector<CourseType>& courses)
     {

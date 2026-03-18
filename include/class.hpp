@@ -21,7 +21,7 @@ class ClassSession
     }
     friend ostream& operator<<(ostream& os, const ClassSession& c)
     {
-        os <<"Course: " << c.course 
+        os <<"\nCourse: " << c.course 
            << "\nDay: " << c.getDayName()
            << "\nTime: " << c.dt.tm_hour<<":"<<c.dt.tm_min<<endl ;
         return os;

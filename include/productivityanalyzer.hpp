@@ -21,7 +21,7 @@ public:
     void analyze(const std::vector<StudySession>& sessions) override
     {
         FocusTimeAnalyzer f;
-        f.analyze(sessions);
+        f.FocusTimeAnalyzer::analyze(sessions);
         string bestLabel=f.getLabel();
          int hourCount[24] = {0};
 
