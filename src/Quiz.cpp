@@ -65,8 +65,8 @@ void Quiz::addNewQuiz(int semesterID) {
     // tm_mon is 0-11, tm_year is years since 1900
     tm dateObj = {0};
     dateObj.tm_mday = d;
-    dateObj.tm_mon = m - 1; 
-    dateObj.tm_year = y - 1900;
+    dateObj.tm_mon = m ; 
+    dateObj.tm_year = y ;
     dateObj.tm_hour = hr;
     dateObj.tm_min = min;
 

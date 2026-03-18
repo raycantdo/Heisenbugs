@@ -1,6 +1,6 @@
 #ifndef STUDYSESSION_HPP
 #define STUDYSESSION_HPP
-
+#include<conio.h>
 #include <string>
 #include <ctime>
 #include <iostream>
@@ -9,6 +9,7 @@
 #include <map>
 #include "Course.hpp"
 #include "Semester.hpp"
+#include "breakR.hpp"
 enum Term
 {
     MIDTERM,
@@ -24,6 +25,7 @@ private:
     bool isRunning;
     Term term;
     std::string semesterStartDate;
+    breakR *breakSystem;
 
 public:
     static std::map<std::string, double> courseTotalTime;                        // course -> total hours
@@ -35,11 +37,47 @@ public:
     StudySession(const std::string &name, Term t, int semID, const std::string &semesterStart = "2025-11-15")
         : Semester(semID), courseName(name), isRunning(false), term(t), semesterStartDate(semesterStart) {}
 
+    void setBreakptr(breakR* b)
+    {
+        breakSystem=b;
+    }
+
     void startSession()
     {
         startTime = time(nullptr);
+        auto startT = std::chrono::steady_clock::now();
         isRunning = true;
         std::cout << "Started studying " << courseName << std::endl;
+        cout << "Timer started for " << courseName << "! Press enter to STOP...\n";
+        while(1)
+        {
+            auto now = std::chrono::steady_clock::now();
+            int minutes = std::chrono::duration_cast<std::chrono::minutes>(now - startT).count();
+            
+            
+            
+            
+            
+            breakSystem->checkStudyReminder(minutes);
+            std::this_thread::sleep_for(std::chrono::seconds(60));
+            /*char c;
+            cin>>c;
+            if(c=='0')
+            {
+                isRunning=false;
+            }*/
+           if(_kbhit()) {
+            char c = _getch();
+            if(c == '\r' || c == 'q') { // Enter or q
+                break;
+            }
+            else if(c == 'd' || c == 'D')
+            {
+                cout<<"Drinking Water\n";
+                breakSystem->drinkWater();
+            }
+        }
+        }
     }
 
     void endSession()

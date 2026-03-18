@@ -14,6 +14,7 @@ using namespace std;
 class ToDoList {
 
 private:
+
     enum Priority { LOW = 1, MEDIUM = 2, HIGH = 3 };
 
     struct Task {
@@ -46,7 +47,7 @@ private:
     time_t created_date;
     time_t last_modified;
     int next_id;
-
+    
     static inline int total_lists_created = 0;
 
     // Helper: update modification time
@@ -78,7 +79,7 @@ private:
         if (str == "0") return 0;
         return static_cast<time_t>(stoll(str));
     }
-
+    
 public:
     // Constructor
     ToDoList(string studentName = "Student")
@@ -125,7 +126,7 @@ public:
     static int getTotalListsCreated() {
         return total_lists_created;
     }
-
+    
     // Add task to the list
     void add_task(string title, string subject, string category) {
         tasks.emplace_back(next_id++, title, subject, category);
@@ -162,6 +163,7 @@ public:
             tasks[index].completed = true;
             tasks[index].completed_time = time(0);
             updateModifiedTime();
+            
         }
     }
 
@@ -172,9 +174,21 @@ public:
             tasks[index].completed = false;
             tasks[index].completed_time = 0;
             updateModifiedTime();
+            
         }
     }
+    int getCompletedTaskCount() const
+{
+    int count = 0;
 
+    for (const auto& t : tasks)
+    {
+        if (t.completed)
+            count++;
+    }
+
+    return count;
+}
     // Calculate the completion rate
     double calculate_completion_rate() const {
         if (tasks.empty()) return 0.0;
@@ -301,7 +315,7 @@ public:
         }
 
         file.close();
-        cout << "✅ To-Do list saved to " << filename << endl;
+        cout << "To-Do list saved to " << filename << endl;
     }
 
     // Load to-do list from file
@@ -358,7 +372,7 @@ public:
         }
 
         file.close();
-        cout << "✅ To-Do list loaded from " << filename << endl;
+        cout << "To-Do list loaded from " << filename << endl;
     }
 
     // Save in simple text format (like your team's quiz file)
@@ -380,7 +394,7 @@ public:
         }
 
         file.close();
-        cout << "✅ To-Do list saved to " << filename << " (simple format)" << endl;
+        cout << "To-Do list saved to " << filename << " (simple format)" << endl;
     }
 
     // Load from simple text format
@@ -433,7 +447,7 @@ public:
         }
 
         file.close();
-        cout << "✅ To-Do list loaded from " << filename << " (simple format)" << endl;
+        cout << "To-Do list loaded from " << filename << " (simple format)" << endl;
         updateModifiedTime();
     }
 
@@ -462,7 +476,7 @@ public:
         }
 
         file.close();
-        cout << "✅ To-Do list exported to " << filename << " (CSV format)" << endl;
+        cout << "To-Do list exported to " << filename << " (CSV format)" << endl;
     }
 };
 
