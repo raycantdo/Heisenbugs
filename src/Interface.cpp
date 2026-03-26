@@ -13,11 +13,12 @@
 #include<sstream>
 #include<iomanip>
 #include "ToDoList.hpp"
- #include "breakR.hpp"
+#include "breakR.hpp"
 #include "StudyPlan.hpp"
 #include "StreakTracker.hpp"
 #include "Routine.hpp"
 #include "class.hpp"
+#include "PomodoroTimer.hpp"
 
 using namespace std;
 
@@ -326,7 +327,7 @@ void studyPortal(User& activeUser)
     {
         
         cout << "\n======= DASHBOARD =======" << endl;
-        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9. To Do List\n10. Study Plan\n11. Streak Tracker\n12. Routine\n13. Exit\nChoice: ";
+        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9. To Do List\n10. Study Plan\n11. Streak Tracker\n12. Routine\n13. Exit\n14. Pomodoro Timer\nChoice: ";
         
         if (!(cin >> userChoice))
         {
@@ -688,6 +689,39 @@ void studyPortal(User& activeUser)
             showHydrationReport(b);
             cout << "✅ To-Do list and streaks saved. Goodbye!" << endl;
             return;
+        }
+        else if (userChoice == 14) 
+        {
+            cout << "\n--- Available Courses ---" << endl;
+            for (const auto& course : courseList)
+            {
+                cout << "- " << course.getCourseName() << endl;
+            }
+
+            string selectedCourse;
+            cout << "Select course for Pomodoro: ";
+            getline(cin, selectedCourse);
+
+            
+            bool exists = false;
+            for (const auto& c : courseList)
+            {
+                if (c.getCourseName() == selectedCourse) {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (exists)
+            {
+                TimerBase* timer = new PomodoroTimer();
+                timer->start(activeUser, selectedCourse);
+                delete timer;
+            }
+            else
+            {
+                cout << "Error: Course not found in your list!" << endl;
+            }
         }
     }
 }
