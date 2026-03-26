@@ -28,7 +28,8 @@ public:
     {
         try
         {
-            std::cout << "\n--- Pomodoro Setup for " << courseName << " ---" << std::endl;
+            std::cout << endl << "Standard Pomodoro Timer: 25 minutes work, 5 minutes break." << std::endl;
+            std::cout << endl << "--- Pomodoro Setup for " << courseName << " ---" << std::endl;
             std::cout << "Enter Study Minutes: ";
             if (!(std::cin >> workTime) || workTime <= 0) throw TimerException("Invalid study time!");
             

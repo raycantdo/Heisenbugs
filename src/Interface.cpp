@@ -327,7 +327,7 @@ void studyPortal(User& activeUser)
     {
         
         cout << "\n======= DASHBOARD =======" << endl;
-        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9. To Do List\n10. Study Plan\n11. Streak Tracker\n12. Routine\n13. Exit\n14. Pomodoro Timer\nChoice: ";
+        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9. To Do List\n10. Study Plan\n11. Streak Tracker\n12. Routine\n13. Exit\nChoice: ";
         
         if (!(cin >> userChoice))
         {
@@ -350,8 +350,72 @@ void studyPortal(User& activeUser)
                     cout << " > " << course << ": " << time << " minutes" << endl;
             }
         } 
+        // else if (userChoice == 2)
+        // {
+        //     cout << "Added Courses:" << endl;
+        //     activeUser.getProfiles()[0].getSemesters()[0].displaySemesterInfo();
+
+        //     string courseName; 
+        //     cout << "Enter Course Name to Study: "; 
+        //     getline(cin, courseName);
+
+        //     bool courseFound = false;
+        //     for (const auto& course : courseList)
+        //     {
+        //         if (course.getCourseName() == courseName) {
+        //             courseFound = true;
+        //             break;
+        //         }
+        //     }
+
+        //     if (courseFound)
+        //     {
+        //         StudySession session(courseName, MIDTERM, 1);
+        //         session.setBreakptr(&b);
+        //         session.startSession();
+        //         session.endSession();
+        //         sessions.push_back(session);
+        //         saveData(activeUser);
+        //         cout << "Session saved successfully!\n" << endl;
+
+        //         // ── Auto-record streak + auto-save ───────────────────────────
+        //         try {
+        //             try { streakTracker.addCourse(courseName); }
+        //             catch (const StudyTracker::StreakException&) { /* already exists */ }
+
+        //             streakTracker.recordStudyDay(courseName);
+        //             cout << "🔥 Streak updated! Current streak for " << courseName
+        //                  << ": " << streakTracker.getCurrentStreak(courseName)
+        //                  << " day(s)" << endl;
+
+        //             // Save immediately so streak isn't lost if program crashes
+        //             streakTracker.saveToFile(streakFile);
+        //         } catch (const StudyTracker::StreakException& e) {
+        //             cout << "Streak note: " << e.what() << endl;
+        //         }
+        //         // ────────────────────────────────────────────────────────────
+        //     }
+        //     else
+        //     {
+        //         cout << endl << "Error: You cannot study '" << courseName << "' because it is not in your course list." << endl;
+        //         cout << "Please add the course first (Option 3)." << endl;
+        //     }
+        // } 
+
         else if (userChoice == 2)
         {
+            cout << "\n--- SELECT STUDY SESSION TYPE ---" << endl;
+            cout << "1. Regular Study Session\n2. Pomodoro Timer\nChoice: ";
+            int sessionType;
+            if (!(cin >> sessionType) || (sessionType != 1 && sessionType != 2))
+            {
+                cout << "Invalid choice. Returning to dashboard." << endl;
+                cin.clear();
+                cin.ignore(1000, '\n');
+                continue;
+            }
+            cin.ignore(1000, '\n');
+
             cout << "Added Courses:" << endl;
             activeUser.getProfiles()[0].getSemesters()[0].displaySemesterInfo();
 
@@ -369,38 +433,47 @@ void studyPortal(User& activeUser)
             }
 
             if (courseFound)
-            {
-                StudySession session(courseName, MIDTERM, 1);
-                session.setBreakptr(&b);
-                session.startSession();
-                session.endSession();
-                sessions.push_back(session);
-                saveData(activeUser);
-                cout << "Session saved successfully!\n" << endl;
+            { 
+                if(sessionType == 2) // Pomodoro
+                {
+                    TimerBase* timer = new PomodoroTimer();
+                    timer->start(activeUser, courseName);
+                    delete timer;
+                }
+                else if(sessionType == 1) // Regular
+                {
+                    StudySession session(courseName, MIDTERM, 1);
+                    session.setBreakptr(&b);
+                    session.startSession();
+                    session.endSession();
+                    sessions.push_back(session);
+                    saveData(activeUser);
+                    cout << "Session saved successfully!\n" << endl;
+                }
 
                 // ── Auto-record streak + auto-save ───────────────────────────
-                try {
+                try
+                {
                     try { streakTracker.addCourse(courseName); }
-                    catch (const StudyTracker::StreakException&) { /* already exists */ }
+                    catch (const StudyTracker::StreakException&) { }
 
                     streakTracker.recordStudyDay(courseName);
-                    cout << "🔥 Streak updated! Current streak for " << courseName
-                         << ": " << streakTracker.getCurrentStreak(courseName)
-                         << " day(s)" << endl;
+                    cout << "🔥 Streak updated! Current streak: " 
+                        << streakTracker.getCurrentStreak(courseName) << " day(s)" << endl;
 
-                    // Save immediately so streak isn't lost if program crashes
                     streakTracker.saveToFile(streakFile);
-                } catch (const StudyTracker::StreakException& e) {
+                }
+                
+                catch (const StudyTracker::StreakException& e)
+                {
                     cout << "Streak note: " << e.what() << endl;
                 }
-                // ────────────────────────────────────────────────────────────
             }
             else
             {
-                cout << endl << "Error: You cannot study '" << courseName << "' because it is not in your course list." << endl;
-                cout << "Please add the course first (Option 3)." << endl;
+                cout << "Error: Course not found." << endl;
             }
-        } 
+        }
         else if (userChoice == 3)
         {
             string name; float credits;
@@ -645,7 +718,7 @@ void studyPortal(User& activeUser)
         {
             streakTrackerPortal(streakTracker, streakFile);
         }
-         else if (userChoice == 12)
+        else if (userChoice == 12)
         {
             Routine<Quiz> examRoutine;
             auto quizzes = sugg.getAllQuizzes(courseList, semID);
@@ -690,38 +763,58 @@ void studyPortal(User& activeUser)
             cout << "✅ To-Do list and streaks saved. Goodbye!" << endl;
             return;
         }
-        else if (userChoice == 14) 
-        {
-            cout << "\n--- Available Courses ---" << endl;
-            for (const auto& course : courseList)
-            {
-                cout << "- " << course.getCourseName() << endl;
-            }
+        // else if (userChoice == 14) 
+        // {
+        //     cout << "\n--- Available Courses ---" << endl;
+        //     for (const auto& course : courseList)
+        //     {
+        //         cout << "- " << course.getCourseName() << endl;
+        //     }
 
-            string selectedCourse;
-            cout << "Select course for Pomodoro: ";
-            getline(cin, selectedCourse);
+        //     string selectedCourse;
+        //     cout << "Select course for Pomodoro: ";
+        //     getline(cin, selectedCourse);
 
             
-            bool exists = false;
-            for (const auto& c : courseList)
-            {
-                if (c.getCourseName() == selectedCourse) {
-                    exists = true;
-                    break;
-                }
-            }
+        //     bool exists = false;
+        //     for (const auto& c : courseList)
+        //     {
+        //         if (c.getCourseName() == selectedCourse) {
+        //             exists = true;
+        //             break;
+        //         }
+        //     }
 
-            if (exists)
-            {
-                TimerBase* timer = new PomodoroTimer();
-                timer->start(activeUser, selectedCourse);
-                delete timer;
-            }
-            else
-            {
-                cout << "Error: Course not found in your list!" << endl;
-            }
-        }
+        //     if (exists)
+        //     {
+        //         TimerBase* timer = new PomodoroTimer();
+        //         timer->start(activeUser, selectedCourse);
+        //         delete timer;
+        //         // --- CONNECT TO STREAKS ---
+        //         try
+        //         {
+        //             // Ensure course exists in tracker
+        //             try { streakTracker.addCourse(selectedCourse); }
+        //             catch (const StudyTracker::StreakException&) { /* already exists */ }
+
+        //             streakTracker.recordStudyDay(selectedCourse);
+                    
+        //             cout << "\n🔥 Pomodoro Streak updated!" << endl;
+        //             cout << "Current streak for " << selectedCourse << ": " 
+        //                 << streakTracker.getCurrentStreak(selectedCourse) << " day(s)" << endl;
+
+        //             // Save the streak to file immediately
+        //             streakTracker.saveToFile(streakFile);
+        //         }
+        //         catch (const StudyTracker::StreakException& e)
+        //         {
+        //             cout << "Streak note: " << e.what() << endl;
+        //         }
+        //     }
+        //     else
+        //     {
+        //         cout << "Error: Course not found in your list!" << endl;
+        //     }
+        // }
     }
 }
