@@ -10,15 +10,15 @@ using namespace std;
 class Profile
 {
 private:
-    std::string profileName;
+    string profileName;
     int totalSemesters;
-    std::vector<Semester> semesters;
+    vector<Semester> semesters;
 
 public:
     Profile(std::string name, int semestersCount) : profileName(name), totalSemesters(semestersCount) {}
 
 
-    std::string getProfileName() const
+    string getProfileName() const
     {
         return profileName;
     }
@@ -29,12 +29,11 @@ public:
 
     void displayProfileInfo() const
     {
-        std::cout << "Profile Name: " << profileName << ", Total Semesters: " << totalSemesters << std::endl;
+        cout << "Profile Name: " << profileName << ", Total Semesters: " << totalSemesters << endl;
         for (const auto& sem : semesters)
         {
             sem.displaySemesterInfo();
         }
-        //std::cout << std::endl;
     }
     vector<Semester>& getSemesters()
     {
