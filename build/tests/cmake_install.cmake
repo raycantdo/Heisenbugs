@@ -1,4 +1,4 @@
-# Install script for directory: D:/sohan/VSCode/Heisenbugs/StudyChron2/Heisenbugs/tests
+# Install script for directory: D:/sohan/VSCode/Heisenbugs/StudyChron3/Heisenbugs/tests
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

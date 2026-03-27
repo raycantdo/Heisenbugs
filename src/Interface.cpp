@@ -19,6 +19,7 @@
 #include "Routine.hpp"
 #include "class.hpp"
 #include "PomodoroTimer.hpp"
+#include <ctime>
 
 using namespace std;
 
@@ -726,19 +727,20 @@ void studyPortal(User& activeUser)
             {
                 examRoutine.addItem(q);
             }
-            int d, m, y, hr, min;
-            cout << "Date (DD MM YYYY): ";
-            cin >> d >> m >> y;
-            cout << "Time (HH MM 24hr format): ";
-            cin >> hr >> min;
+            time_t now = time(0);
+            tm* ltm = localtime(&now);
 
-            // tm_mon is 0-11, tm_year is years since 1900
-            tm dateObj = {0};
-            dateObj.tm_mday = d;
-            dateObj.tm_mon = m ;
-            dateObj.tm_year = y ;
-            dateObj.tm_hour = hr;
-            dateObj.tm_min = min;
+            
+            tm dateObj = *ltm;
+            
+            int d   = dateObj.tm_mday;
+            int m   = dateObj.tm_mon + 1;    
+            int y   = dateObj.tm_year + 1900;
+            int hr  = dateObj.tm_hour;
+            int min = dateObj.tm_min;
+
+            cout << "Current Date and Time: " << d << "/" << m << "/" << y 
+                << " " << hr << ":" << min << endl;
             examRoutine.addItem(Quiz(1, semID, "EEE", "Chap5", dateObj));
 
             Routine<ClassSession> classRoutine;
