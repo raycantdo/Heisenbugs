@@ -196,7 +196,7 @@ public:
         bool found = false;
         for (const auto& topic : topics) {
             if (topic.getCourseName() == courseName) {
-                cout << "  • " << topic.getName() 
+                cout  << topic.getName() 
                      << " (" << topic.getEstimatedHours() << " hrs)"
                      << " - " << topic.getStatus() << endl;
                 found = true;

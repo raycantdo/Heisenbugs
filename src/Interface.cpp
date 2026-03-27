@@ -741,27 +741,15 @@ void studyPortal(User& activeUser)
 
             cout << "Current Date and Time: " << d << "/" << m << "/" << y 
                 << " " << hr << ":" << min << endl;
-            examRoutine.addItem(Quiz(1, semID, "EEE", "Chap5", dateObj));
-             time_t now = time(0);
-            tm* ltm = localtime(&now);
-
-            
-            tm dateObj = *ltm;
-            
-            int d   = dateObj.tm_mday;
-            int m   = dateObj.tm_mon + 1;    
-            int y   = dateObj.tm_year + 1900;
-            int hr  = dateObj.tm_hour;
-            int min = dateObj.tm_min;
-
-            cout << "Current Date and Time: " << d << "/" << m << "/" << y 
-                << " " << hr << ":" << min << endl;
+           
             
             while(1){
             string sub,syl;
+            cout<<"Enter exam course:(Press 0 to end)";
             cin>>sub;
-            if(sub=="\0")
+            if(sub=="0")
                 break;
+            cout<<"Enter exam syllabus:";
             cin>>syl;
 
             examRoutine.addItem(Quiz(1, semID, sub, syl, dateObj));
@@ -773,9 +761,11 @@ void studyPortal(User& activeUser)
                 string c;
                 
                 int day,hour,minute;
+                cout<<"Enter course:(Press 0 to end)";
                 cin>>c;
-                if(c=="\0")
+                if(c=="0")
                     break;
+                cout<<"Enter day_number hour minute";
                 cin>>day>>hour>>minute;
             classRoutine.addItem(ClassSession(c,day,hour,minute));
             }

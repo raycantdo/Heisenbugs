@@ -29,6 +29,8 @@ int main()
     
     ifstream userDB("user_db.txt");
     string userName, majorName, profileName; int totalSemesterCount;
+    cout<<"Total Semester:";
+    cin>>totalSemesterCount;
     vector<string> savedCourses;
     
     // 1. Better Loading Logic

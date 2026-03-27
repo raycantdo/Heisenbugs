@@ -1,5 +1,5 @@
 COA,17.1
-DSA,6.1
+DSA,28.1
 EEE,0.9
 Linear Algebra,6.65
-OOP,5.1
+OOP,6.1
