@@ -14,4 +14,4 @@ class avgSession:public Analytics
         cout<<"Average session length: "<<total/sessions.size()<<" minutes\n";
     }
 };
-#endif;
+#endif

@@ -15,5 +15,10 @@ add_executable(StudyChronApp
     src/Quiz.cpp
 )
 
+# Link Windows API for beep
+if(WIN32)
+    target_link_libraries(StudyChronApp PRIVATE user32 kernel32)
+endif()
+
 # Link the tests folder
 add_subdirectory(tests)
