@@ -27,10 +27,17 @@ What is a pure virtual function?|A virtual function with no implementation, maki
 What is multiple inheritance?|A class inheriting from more than one base class
 
 What is operator overloading?|Giving custom meaning to operators (like +, -) for user-defined types
+
 What is a friend function?|A non-member function that has access to private members of a class
+
 What is a static member?|A member that belongs to the class itself, not to any instance
+
 What is the difference between deep copy and shallow copy?|Deep copy duplicates the actual data; shallow copy only copies pointers
+
 What is a template?|A feature that allows writing generic code for any data type
+
 What is exception handling?|Mechanism to handle runtime errors using try, catch, and throw
+
 What is a namespace?|A container that groups identifiers to avoid name collisions
+
 What is the Standard Template Library (STL)?|A library providing containers, iterators, algorithms, and utilities
