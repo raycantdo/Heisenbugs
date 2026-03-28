@@ -1,2 +1,36 @@
 What is a class?|A blueprint for objects
+
 What is inheritance?|Deriving a class from another class
+
+What is a class?|A blueprint for objects
+
+What is inheritance?|Deriving a class from another class
+
+What is encapsulation?|Bundling data and methods that operate on that data
+
+What is polymorphism?|The ability of objects to take on many forms
+
+What is an object?|An instance of a class
+
+What is abstraction?|Hiding complex implementation details and showing only essential features 
+
+What is a constructor?|A special method called when an object is created
+
+What is a destructor?|A special method called when an object is destroyed
+
+What is the difference between public and private access specifiers?|Public members are accessible from outside the class; private members are not
+
+What is a virtual function?|A function that can be overridden in derived classes to achieve runtime polymorphism
+
+What is a pure virtual function?|A virtual function with no implementation, making the class abstract
+
+What is multiple inheritance?|A class inheriting from more than one base class
+
+What is operator overloading?|Giving custom meaning to operators (like +, -) for user-defined types
+What is a friend function?|A non-member function that has access to private members of a class
+What is a static member?|A member that belongs to the class itself, not to any instance
+What is the difference between deep copy and shallow copy?|Deep copy duplicates the actual data; shallow copy only copies pointers
+What is a template?|A feature that allows writing generic code for any data type
+What is exception handling?|Mechanism to handle runtime errors using try, catch, and throw
+What is a namespace?|A container that groups identifiers to avoid name collisions
+What is the Standard Template Library (STL)?|A library providing containers, iterators, algorithms, and utilities
