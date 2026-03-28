@@ -1,0 +1,30 @@
+What is a data structure?|A way of organizing and storing data to enable efficient access and modification
+What is an algorithm?|A step-by-step procedure for solving a problem
+What is the difference between linear and non-linear data structures?|Linear structures have elements arranged sequentially; non-linear have hierarchical or interconnected elements
+What is an array?|A collection of elements of the same data type stored in contiguous memory locations
+What is a linked list?|A linear data structure where elements are stored in nodes, each pointing to the next
+What is the time complexity of accessing an element in an array?|O(1) (constant time)
+What is the time complexity of accessing an element in a singly linked list?|O(n) (linear time)
+What is a stack?|A LIFO (Last-In, First-Out) data structure
+What is a queue?|A FIFO (First-In, First-Out) data structure
+What is a binary tree?|A tree where each node has at most two children
+What is a binary search tree (BST)?|A binary tree where left child is smaller and right child is larger than the parent
+What is the time complexity of searching in a balanced BST?|O(log n)
+What is a hash table?|A data structure that maps keys to values using a hash function
+What is a heap?|A complete binary tree used for priority queues (max-heap or min-heap)
+What is a graph?|A set of vertices connected by edges
+What is the difference between a graph and a tree?|A tree is a connected acyclic graph; graphs can have cycles
+What is recursion?|A technique where a function calls itself to solve smaller instances of a problem
+What is the time complexity of bubble sort?|O(n²)
+What is the time complexity of merge sort?|O(n log n)
+What is the time complexity of quicksort in the worst case?|O(n²)
+What is the time complexity of quicksort in the average case?|O(n log n)
+What is the difference between depth-first search (DFS) and breadth-first search (BFS)?|DFS explores as far as possible along each branch; BFS explores level by level
+What is dynamic programming?|A technique that solves problems by breaking them into overlapping subproblems and storing results
+What is the time complexity of binary search on a sorted array?|O(log n)
+What is a priority queue?|A queue where each element has a priority, and higher priority elements are dequeued first
+What is the purpose of an AVL tree?|A self-balancing binary search tree to maintain O(log n) height
+What is the difference between a stack and a queue?|Stack is LIFO; queue is FIFO
+What is a singly linked list?|A linked list where each node points only to the next node
+What is a doubly linked list?|A linked list where each node points to both the next and previous node
+What is the space complexity of an algorithm?|The amount of memory required by an algorithm
