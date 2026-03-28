@@ -4,6 +4,7 @@
 #include "Quiz.hpp"
 #include "SmartSuggestion.hpp"
 #include "Flashcard.hpp"
+#include "ExamScoreTracker.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
