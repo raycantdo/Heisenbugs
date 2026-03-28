@@ -1,0 +1,30 @@
+What does AC stand for?|Alternating Current
+What does DC stand for?|Direct Current
+What is Ohm's Law?|V = I * R
+What unit is resistance measured in?|Ohms (Ω)
+What is the unit of current?|Ampere (A)
+What is the unit of voltage?|Volt (V)
+What is the unit of power?|Watt (W)
+What is a resistor?|A component that opposes current flow
+What is a capacitor?|A component that stores electrical energy in an electric field
+What is an inductor?|A component that stores energy in a magnetic field
+What is a diode?|A semiconductor device that allows current to flow in one direction only
+What is a transistor?|A semiconductor device used for amplification and switching
+What is Kirchhoff's Current Law (KCL)?|The sum of currents entering a node equals the sum leaving it
+What is Kirchhoff's Voltage Law (KVL)?|The sum of voltages around a closed loop is zero
+What is the difference between series and parallel circuits?|Series: components share same current; parallel: components share same voltage
+What is impedance?|The total opposition to current flow in an AC circuit (resistance + reactance)
+What is a transformer?|A device that transfers electrical energy between circuits through electromagnetic induction
+What is the purpose of a rectifier?|Converts AC to DC
+What is a logic gate?|An electronic circuit that performs a Boolean function
+What does CPU stand for?|Central Processing Unit
+What is a microcontroller?|A compact integrated circuit designed to control a specific operation in an embedded system
+What is a sensor?|A device that detects physical input and converts it into an electrical signal
+What is an actuator?|A device that converts electrical energy into physical motion
+What is the difference between analog and digital signals?|Analog signals are continuous; digital signals are discrete
+What is the Nyquist theorem?|To avoid aliasing, sampling rate must be at least twice the highest frequency
+What is a flip-flop?|A circuit that has two stable states and can store one bit of data
+What is a multiplexer?|A device that selects one of several input signals and forwards it to a single output
+What is an operational amplifier (op-amp)?|A high-gain voltage amplifier with differential inputs
+What is the function of a fuse?|Protects a circuit by breaking the connection when current exceeds a safe limit
+What is the difference between a motor and a generator?|A motor converts electrical energy to mechanical; a generator does the opposite
