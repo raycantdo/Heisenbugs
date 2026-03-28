@@ -1,0 +1,30 @@
+What is computer architecture?|The design of the computer's hardware components and their interconnection
+What is computer organization?|The way hardware components are arranged and work together to implement the architecture
+What is the difference between architecture and organization?|Architecture is the design; organization is the implementation
+What does CPU stand for?|Central Processing Unit
+What are the main components of a CPU?|Arithmetic Logic Unit (ALU), Control Unit (CU), and registers
+What is the function of the ALU?|Performs arithmetic and logical operations
+What is the function of the Control Unit?|Directs the operation of the processor by decoding instructions and generating control signals
+What is a register?|A small, fast storage location inside the CPU
+What is the Program Counter (PC)?|A register that holds the address of the next instruction to be executed
+What is the Instruction Register (IR)?|A register that holds the current instruction being executed
+What is the Memory Address Register (MAR)?|A register that holds the address of a memory location to be accessed
+What is the Memory Data Register (MDR)?|A register that holds data being transferred to or from memory
+What is the fetch-decode-execute cycle?|The cycle by which the CPU fetches an instruction from memory, decodes it, and executes it
+What is pipelining?|A technique that allows overlapping instruction execution to improve throughput
+What is a hazard in pipelining?|A situation that prevents the next instruction from executing in the next clock cycle
+What is a cache?|A small, fast memory that stores frequently used data and instructions to reduce access time
+What is the difference between cache and main memory?|Cache is faster but smaller; main memory is larger but slower
+What is virtual memory?|A memory management technique that uses secondary storage to extend physical memory
+What is a page fault?|An interrupt that occurs when a program accesses a memory page that is not currently in physical memory
+What is the von Neumann architecture?|A computer architecture with a single memory for both instructions and data
+What is the Harvard architecture?|A computer architecture with separate memories for instructions and data
+What is a bus?|A communication system that transfers data between components inside a computer
+What are the three main buses?|Data bus, address bus, and control bus
+What is an interrupt?|A signal that temporarily halts the CPU to handle a high‑priority event
+What is DMA (Direct Memory Access)?|A feature that allows peripherals to access memory directly without CPU involvement
+What is RISC?|Reduced Instruction Set Computer – uses simple, fixed‑length instructions for faster execution
+What is CISC?|Complex Instruction Set Computer – uses complex, multi‑cycle instructions to reduce code size
+What is the clock speed?|The frequency at which the CPU executes instructions, measured in Hz
+What is a flag register?|A register that stores status information like carry, overflow, zero, and sign flags
+What is a microoperation?|An elementary operation performed by the CPU during execution of an instruction
