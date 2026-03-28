@@ -10,9 +10,9 @@
 #include <string>
 #include <algorithm>
 #include "ai_insight.hpp"
-#include<fstream>
-#include<sstream>
-#include<iomanip>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
 #include "ToDoList.hpp"
 #include "breakR.hpp"
 #include "StudyPlan.hpp"
@@ -24,7 +24,8 @@
 
 using namespace std;
 
-void displayTitle() {
+void displayTitle()
+{
     cout << R"(
   ____  _____ _   _ ______     ______ _   _ ____   ___  _   _ 
  / ___||_   _| | | |  _ \ \   / / ___| | | |  _ \ / _ \| \ | |
@@ -34,13 +35,12 @@ void displayTitle() {
     )" << endl;
 }
 
-
 // reviewFlashcards(Helper Function) - Allows the user to review flashcards for a chosen course based on a course number
-void reviewFlashcards(User& activeUser) 
+void reviewFlashcards(User &activeUser)
 {
-    auto& courseList = activeUser.getProfiles()[0].getSemesters()[0].getCourses();
+    auto &courseList = activeUser.getProfiles()[0].getSemesters()[0].getCourses();
 
-    if (courseList.empty()) 
+    if (courseList.empty())
     {
         cout << "\nYou haven't added any courses yet. Please add a course first (Option 3).\n";
         return;
@@ -63,25 +63,31 @@ void reviewFlashcards(User& activeUser)
 
     string courseName = courseList[choice - 1].getCourseName();
 
-    FlashcardManager fm; 
-    if (fm.loadForCourse(courseName)) 
+    FlashcardManager fm;
+    if (fm.loadForCourse(courseName))
         fm.runQuiz();
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // studyPlanPortal — full sub-menu for the StudyPlan feature
 // ─────────────────────────────────────────────────────────────────────────────
-void studyPlanPortal(User& activeUser)
+void studyPlanPortal(User &activeUser)
 {
     string studentName = activeUser.getProfiles()[0].getProfileName();
     StudyPlan plan("My Study Plan", studentName, 2);
 
     string planFile = studentName + "_studyplan.dat";
-    try { plan.loadFromFile(planFile); }
-    catch (...) {}
+    try
+    {
+        plan.loadFromFile(planFile);
+    }
+    catch (...)
+    {
+    }
 
     int spChoice;
-    do {
+    do
+    {
         plan.displaySummary();
 
         cout << "\n======= STUDY PLAN MANAGER =======" << endl;
@@ -104,112 +110,170 @@ void studyPlanPortal(User& activeUser)
 
         switch (spChoice)
         {
-            case 1: {
-                string cname;
-                cout << "Course Name: "; getline(cin, cname);
-                plan.addCourse(cname);
-                cout << "Course added to plan!" << endl;
-                break;
+        case 1:
+        {
+            string cname;
+            cout << "Course Name: ";
+            getline(cin, cname);
+            plan.addCourse(cname);
+            cout << "Course added to plan!" << endl;
+            break;
+        }
+        case 13:
+        {
+            plan.listCourses();
+            cout << "Enter course number to remove: ";
+            int idx;
+            cin >> idx;
+            cin.ignore(1000, '\n');
+            plan.removeCourse(idx - 1);
+            cout << "Course removed." << endl;
+            break;
+        }
+        case 2:
+        {
+            plan.listCourses();
+            break;
+        }
+        case 3:
+        {
+            string cname, tname;
+            int hours;
+            cout << "Course Name: ";
+            getline(cin, cname);
+            cout << "Topic Name: ";
+            getline(cin, tname);
+            cout << "Estimated Hours: ";
+            cin >> hours;
+            cin.ignore(1000, '\n');
+            try
+            {
+                plan.addTopic(cname, tname, hours);
+                cout << "Topic added!" << endl;
             }
-            case 13: {
-                plan.listCourses();
-                cout << "Enter course number to remove: ";
-                int idx; cin >> idx; cin.ignore(1000, '\n');
-                plan.removeCourse(idx - 1);
-                cout << "Course removed." << endl;
-                break;
+            catch (const runtime_error &e)
+            {
+                cout << "Error: " << e.what() << endl;
             }
-            case 2: {
-                plan.listCourses();
-                break;
+            break;
+        }
+        case 4:
+        {
+            plan.listTopics();
+            break;
+        }
+        case 5:
+        {
+            string cname;
+            cout << "Course Name: ";
+            getline(cin, cname);
+            plan.listTopicsByCourse(cname);
+            break;
+        }
+        case 6:
+        {
+            plan.listTopics();
+            cout << "Enter topic number to schedule: ";
+            int idx;
+            cin >> idx;
+            cin.ignore(1000, '\n');
+            cout << "Enter date (YYYY-MM-DD): ";
+            string dateStr;
+            getline(cin, dateStr);
+            try
+            {
+                plan.scheduleTopic(idx - 1, Date(dateStr));
             }
-            case 3: {
-                string cname, tname;
-                int hours;
-                cout << "Course Name: "; getline(cin, cname);
-                cout << "Topic Name: ";  getline(cin, tname);
-                cout << "Estimated Hours: "; cin >> hours; cin.ignore(1000, '\n');
-                try {
-                    plan.addTopic(cname, tname, hours);
-                    cout << "Topic added!" << endl;
-                } catch (const runtime_error& e) {
-                    cout << "Error: " << e.what() << endl;
-                }
-                break;
+            catch (const runtime_error &e)
+            {
+                cout << "Error: " << e.what() << endl;
             }
-            case 4: {
-                plan.listTopics();
-                break;
+            break;
+        }
+        case 7:
+        {
+            plan.listTopics();
+            cout << "Enter topic number to mark In Progress: ";
+            int idx;
+            cin >> idx;
+            cin.ignore(1000, '\n');
+            plan.markTopicInProgress(idx - 1);
+            break;
+        }
+        case 8:
+        {
+            plan.listTopics();
+            cout << "Enter topic number to mark Complete: ";
+            int idx;
+            cin >> idx;
+            cin.ignore(1000, '\n');
+            cout << "Actual hours spent: ";
+            int hrs;
+            cin >> hrs;
+            cin.ignore(1000, '\n');
+            try
+            {
+                plan.markTopicComplete(idx - 1, hrs);
             }
-            case 5: {
-                string cname;
-                cout << "Course Name: "; getline(cin, cname);
-                plan.listTopicsByCourse(cname);
-                break;
+            catch (const runtime_error &e)
+            {
+                cout << "Error: " << e.what() << endl;
             }
-            case 6: {
-                plan.listTopics();
-                cout << "Enter topic number to schedule: ";
-                int idx; cin >> idx; cin.ignore(1000, '\n');
-                cout << "Enter date (YYYY-MM-DD): ";
-                string dateStr; getline(cin, dateStr);
-                try {
-                    plan.scheduleTopic(idx - 1, Date(dateStr));
-                } catch (const runtime_error& e) {
-                    cout << "Error: " << e.what() << endl;
-                }
-                break;
+            break;
+        }
+        case 9:
+        {
+            cout << "\n--- PROGRESS REPORT ---" << endl;
+            cout << "Overall: " << plan.getOverallProgress() << "%" << endl;
+            cout << "Hours done: " << plan.getTotalStudyHours() << endl;
+            cout << "Hours left: " << plan.getRemainingHours() << endl;
+            break;
+        }
+        case 10:
+        {
+            string fname;
+            cout << "Filename (default: " << planFile << "): ";
+            getline(cin, fname);
+            if (fname.empty())
+                fname = planFile;
+            try
+            {
+                plan.saveToFile(fname);
             }
-            case 7: {
-                plan.listTopics();
-                cout << "Enter topic number to mark In Progress: ";
-                int idx; cin >> idx; cin.ignore(1000, '\n');
-                plan.markTopicInProgress(idx - 1);
-                break;
+            catch (const runtime_error &e)
+            {
+                cout << "Error: " << e.what() << endl;
             }
-            case 8: {
-                plan.listTopics();
-                cout << "Enter topic number to mark Complete: ";
-                int idx; cin >> idx; cin.ignore(1000, '\n');
-                cout << "Actual hours spent: ";
-                int hrs; cin >> hrs; cin.ignore(1000, '\n');
-                try {
-                    plan.markTopicComplete(idx - 1, hrs);
-                } catch (const runtime_error& e) {
-                    cout << "Error: " << e.what() << endl;
-                }
-                break;
+            break;
+        }
+        case 11:
+        {
+            string fname;
+            cout << "Filename to load: ";
+            getline(cin, fname);
+            try
+            {
+                plan.loadFromFile(fname);
             }
-            case 9: {
-                cout << "\n--- PROGRESS REPORT ---" << endl;
-                cout << "Overall: " << plan.getOverallProgress() << "%" << endl;
-                cout << "Hours done: " << plan.getTotalStudyHours() << endl;
-                cout << "Hours left: " << plan.getRemainingHours() << endl;
-                break;
+            catch (const runtime_error &e)
+            {
+                cout << "Error: " << e.what() << endl;
             }
-            case 10: {
-                string fname;
-                cout << "Filename (default: " << planFile << "): ";
-                getline(cin, fname);
-                if (fname.empty()) fname = planFile;
-                try { plan.saveToFile(fname); }
-                catch (const runtime_error& e) { cout << "Error: " << e.what() << endl; }
-                break;
+            break;
+        }
+        case 0:
+            try
+            {
+                plan.saveToFile(planFile);
+                cout << "Plan auto-saved." << endl;
             }
-            case 11: {
-                string fname;
-                cout << "Filename to load: "; getline(cin, fname);
-                try { plan.loadFromFile(fname); }
-                catch (const runtime_error& e) { cout << "Error: " << e.what() << endl; }
-                break;
+            catch (...)
+            {
             }
-            case 0:
-                try { plan.saveToFile(planFile); cout << "Plan auto-saved." << endl; }
-                catch (...) {}
-                cout << "Returning to dashboard..." << endl;
-                break;
-            default:
-                cout << "Invalid choice!" << endl;
+            cout << "Returning to dashboard..." << endl;
+            break;
+        default:
+            cout << "Invalid choice!" << endl;
         }
 
     } while (spChoice != 0);
@@ -218,10 +282,11 @@ void studyPlanPortal(User& activeUser)
 // ─────────────────────────────────────────────────────────────────────────────
 // streakTrackerPortal — sub-menu for the StreakTracker feature
 // ─────────────────────────────────────────────────────────────────────────────
-void streakTrackerPortal(StudyTracker::StreakTracker<>& tracker, const string& streakFile)
+void streakTrackerPortal(StudyTracker::StreakTracker<> &tracker, const string &streakFile)
 {
     int stChoice;
-    do {
+    do
+    {
         tracker.display();
 
         cout << "\n======= STREAK TRACKER =======" << endl;
@@ -238,78 +303,181 @@ void streakTrackerPortal(StudyTracker::StreakTracker<>& tracker, const string& s
 
         switch (stChoice)
         {
-            case 1: {
-                string cname;
-                cout << "Course Name to track: "; getline(cin, cname);
-                try {
-                    tracker.addCourse(cname);
-                    cout << "Course added to streak tracker!" << endl;
-                } catch (const StudyTracker::StreakException& e) {
-                    cout << "Error: " << e.what() << endl;
-                }
-                break;
+        case 1:
+        {
+            string cname;
+            cout << "Course Name to track: ";
+            getline(cin, cname);
+            try
+            {
+                tracker.addCourse(cname);
+                cout << "Course added to streak tracker!" << endl;
             }
-            case 2: {
-                string cname;
-                cout << "Course Name to remove: "; getline(cin, cname);
-                try {
-                    tracker.removeCourse(cname);
-                    cout << "Course removed from streak tracker!" << endl;
-                } catch (const StudyTracker::StreakException& e) {
-                    cout << "Error: " << e.what() << endl;
-                }
-                break;
+            catch (const StudyTracker::StreakException &e)
+            {
+                cout << "Error: " << e.what() << endl;
             }
-            case 3: {
-                string cname;
-                cout << "Course Name: "; getline(cin, cname);
-                try {
-                    tracker.recordStudyDay(cname);
-                    cout << "Study day recorded! Current streak: "
-                         << tracker.getCurrentStreak(cname) << " day(s)" << endl;
-                } catch (const StudyTracker::StreakException& e) {
-                    cout << "Error: " << e.what() << endl;
-                }
-                break;
+            break;
+        }
+        case 2:
+        {
+            string cname;
+            cout << "Course Name to remove: ";
+            getline(cin, cname);
+            try
+            {
+                tracker.removeCourse(cname);
+                cout << "Course removed from streak tracker!" << endl;
             }
-            case 4: {
-                string cname;
-                cout << "Course Name: "; getline(cin, cname);
-                try {
-                    cout << "Current streak for " << cname << ": "
-                         << tracker.getCurrentStreak(cname) << " day(s)" << endl;
-                } catch (const StudyTracker::StreakException& e) {
-                    cout << "Error: " << e.what() << endl;
-                }
-                break;
+            catch (const StudyTracker::StreakException &e)
+            {
+                cout << "Error: " << e.what() << endl;
             }
-            case 5: {
-                string cname;
-                cout << "Course Name: "; getline(cin, cname);
-                try {
-                    cout << "Best streak for " << cname << ": "
-                         << tracker.getBestStreak(cname) << " day(s)" << endl;
-                } catch (const StudyTracker::StreakException& e) {
-                    cout << "Error: " << e.what() << endl;
-                }
-                break;
+            break;
+        }
+        case 3:
+        {
+            string cname;
+            cout << "Course Name: ";
+            getline(cin, cname);
+            try
+            {
+                tracker.recordStudyDay(cname);
+                cout << "Study day recorded! Current streak: "
+                     << tracker.getCurrentStreak(cname) << " day(s)" << endl;
             }
-            case 0:
-                // ── Auto-save streaks when leaving sub-menu ──────────────────
-                try { tracker.saveToFile(streakFile); cout << "Streaks auto-saved." << endl; }
-                catch (const StudyTracker::StreakException& e) { cout << "Save error: " << e.what() << endl; }
-                cout << "Returning to dashboard..." << endl;
-                break;
-            default:
-                cout << "Invalid choice!" << endl;
+            catch (const StudyTracker::StreakException &e)
+            {
+                cout << "Error: " << e.what() << endl;
+            }
+            break;
+        }
+        case 4:
+        {
+            string cname;
+            cout << "Course Name: ";
+            getline(cin, cname);
+            try
+            {
+                cout << "Current streak for " << cname << ": "
+                     << tracker.getCurrentStreak(cname) << " day(s)" << endl;
+            }
+            catch (const StudyTracker::StreakException &e)
+            {
+                cout << "Error: " << e.what() << endl;
+            }
+            break;
+        }
+        case 5:
+        {
+            string cname;
+            cout << "Course Name: ";
+            getline(cin, cname);
+            try
+            {
+                cout << "Best streak for " << cname << ": "
+                     << tracker.getBestStreak(cname) << " day(s)" << endl;
+            }
+            catch (const StudyTracker::StreakException &e)
+            {
+                cout << "Error: " << e.what() << endl;
+            }
+            break;
+        }
+        case 0:
+            // ── Auto-save streaks when leaving sub-menu ──────────────────
+            try
+            {
+                tracker.saveToFile(streakFile);
+                cout << "Streaks auto-saved." << endl;
+            }
+            catch (const StudyTracker::StreakException &e)
+            {
+                cout << "Save error: " << e.what() << endl;
+            }
+            cout << "Returning to dashboard..." << endl;
+            break;
+        default:
+            cout << "Invalid choice!" << endl;
         }
 
     } while (stChoice != 0);
 }
 // ─────────────────────────────────────────────────────────────────────────────
 
+void examScorePortal()
+{
+    ExamScoreTracker tracker;
 
-void studyPortal(User& activeUser)
+    int choice;
+    double targetPercent;
+
+    cout << "\nEnter your target percentage (e.g., 80): ";
+    cin >> targetPercent;
+    cin.ignore(1000, '\n');
+
+    do
+    {
+        cout << "\n======= EXAM SCORE TRACKER =======" << endl;
+        cout << "1. Add / Update Course Scores\n";
+        cout << "2. View All Courses Summary\n";
+        cout << "3. View Single Course\n";
+        cout << "0. Back to Dashboard\n";
+        cout << "Choice: ";
+
+        cin >> choice;
+        cin.ignore(1000, '\n');
+
+        switch (choice)
+        {
+        case 1:
+        {
+            string course;
+            int midM, midMax, finalM, finalMax;
+
+            cout << "Course Name: ";
+            getline(cin, course);
+
+            cout << "Mid Marks: ";
+            cin >> midM;
+            cout << "Mid Max: ";
+            cin >> midMax;
+
+            cout << "Final Marks (0 if not given yet): ";
+            cin >> finalM;
+            cout << "Final Max: ";
+            cin >> finalMax;
+            cin.ignore(1000, '\n');
+
+            tracker.setScores(course, midM, midMax, finalM, finalMax);
+            cout << "Scores saved!\n";
+            break;
+        }
+
+        case 2:
+            tracker.displaySummary(targetPercent);
+            break;
+
+        case 3:
+        {
+            string course;
+            cout << "Enter course name: ";
+            getline(cin, course);
+            tracker.displayCourse(course, targetPercent);
+            break;
+        }
+
+        case 0:
+            cout << "Returning to dashboard...\n";
+            break;
+
+        default:
+            cout << "Invalid choice!\n";
+        }
+
+    } while (choice != 0);
+}
+void studyPortal(User &activeUser)
 {
     vector<StudySession> sessions;
     breakR b;
@@ -318,46 +486,52 @@ void studyPortal(User& activeUser)
 
     // ── Auto-load streaks on startup ─────────────────────────────────────────
     string studentName = activeUser.getProfiles()[0].getProfileName();
-    string streakFile  = studentName + "_streaks.dat";
-    try { streakTracker.loadFromFile(streakFile); }
-    catch (...) { /* no existing file yet — start fresh */ }
+    string streakFile = studentName + "_streaks.dat";
+    try
+    {
+        streakTracker.loadFromFile(streakFile);
+    }
+    catch (...)
+    { /* no existing file yet — start fresh */
+    }
     // ─────────────────────────────────────────────────────────────────────────
     SmartSuggestion<Course> sugg;
     int userChoice;
     while (true)
     {
-        
+
         cout << "\n======= DASHBOARD =======" << endl;
-        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9. To Do List\n10. Study Plan\n11. Streak Tracker\n12. Routine\n13. Exit\nChoice: ";
-        
+        cout << "1. View Stats\n2. Start Study\n3. Add Course\n4. Remove Course\n5. Smart Suggestion \n6. Add Quiz\n7. Flashcards\n8. AI Study Insights \n9. To Do List\n10. Study Plan\n11. Streak Tracker\n12. Routine\n13. Exam Score Tracker\n14.Exit\nChoice: ";
+
         if (!(cin >> userChoice))
         {
             cin.clear();
             cin.ignore(1000, '\n');
             continue;
         }
-        cin.ignore(1000, '\n'); 
+        cin.ignore(1000, '\n');
 
-        auto& courseList = activeUser.getProfiles()[0].getSemesters()[0].getCourses();
+        auto &courseList = activeUser.getProfiles()[0].getSemesters()[0].getCourses();
         int semID = activeUser.getProfiles()[0].getSemesters()[0].getSemesterId();
-        
+
         if (userChoice == 1)
         {
             cout << "\n--- STUDY STATISTICS ---" << endl;
-            if (StudySession::courseTotalTime.empty()) cout << "No sessions recorded yet." << endl;
+            if (StudySession::courseTotalTime.empty())
+                cout << "No sessions recorded yet." << endl;
             else
             {
-                for (auto const& [course, time] : StudySession::courseTotalTime)
+                for (auto const &[course, time] : StudySession::courseTotalTime)
                     cout << " > " << course << ": " << time << " minutes" << endl;
             }
-        } 
+        }
         // else if (userChoice == 2)
         // {
         //     cout << "Added Courses:" << endl;
         //     activeUser.getProfiles()[0].getSemesters()[0].displaySemesterInfo();
 
-        //     string courseName; 
-        //     cout << "Enter Course Name to Study: "; 
+        //     string courseName;
+        //     cout << "Enter Course Name to Study: ";
         //     getline(cin, courseName);
 
         //     bool courseFound = false;
@@ -401,7 +575,7 @@ void studyPortal(User& activeUser)
         //         cout << endl << "Error: You cannot study '" << courseName << "' because it is not in your course list." << endl;
         //         cout << "Please add the course first (Option 3)." << endl;
         //     }
-        // } 
+        // }
 
         else if (userChoice == 2)
         {
@@ -420,28 +594,29 @@ void studyPortal(User& activeUser)
             cout << "Added Courses:" << endl;
             activeUser.getProfiles()[0].getSemesters()[0].displaySemesterInfo();
 
-            string courseName; 
-            cout << "Enter Course Name to Study: "; 
+            string courseName;
+            cout << "Enter Course Name to Study: ";
             getline(cin, courseName);
 
             bool courseFound = false;
-            for (const auto& course : courseList)
+            for (const auto &course : courseList)
             {
-                if (course.getCourseName() == courseName) {
+                if (course.getCourseName() == courseName)
+                {
                     courseFound = true;
                     break;
                 }
             }
 
             if (courseFound)
-            { 
-                if(sessionType == 2) // Pomodoro
+            {
+                if (sessionType == 2) // Pomodoro
                 {
-                    TimerBase* timer = new PomodoroTimer();
+                    TimerBase *timer = new PomodoroTimer();
                     timer->start(activeUser, courseName);
                     delete timer;
                 }
-                else if(sessionType == 1) // Regular
+                else if (sessionType == 1) // Regular
                 {
                     StudySession session(courseName, MIDTERM, 1);
                     session.setBreakptr(&b);
@@ -449,14 +624,20 @@ void studyPortal(User& activeUser)
                     session.endSession();
                     sessions.push_back(session);
                     saveData(activeUser);
-                    cout << "Session saved successfully!\n" << endl;
+                    cout << "Session saved successfully!\n"
+                         << endl;
                 }
 
                 // ── Auto-record streak + auto-save ───────────────────────────
                 try
                 {
-                    try { streakTracker.addCourse(courseName); }
-                    catch (const StudyTracker::StreakException&) { }
+                    try
+                    {
+                        streakTracker.addCourse(courseName);
+                    }
+                    catch (const StudyTracker::StreakException &)
+                    {
+                    }
 
                     streakTracker.recordStudyDay(courseName);
                     cout << "Streak updated! Current streak for " << courseName
@@ -465,8 +646,8 @@ void studyPortal(User& activeUser)
 
                     streakTracker.saveToFile(streakFile);
                 }
-                
-                catch (const StudyTracker::StreakException& e)
+
+                catch (const StudyTracker::StreakException &e)
                 {
                     cout << "Streak note: " << e.what() << endl;
                 }
@@ -478,10 +659,13 @@ void studyPortal(User& activeUser)
         }
         else if (userChoice == 3)
         {
-            string name; float credits;
-            cout << "New Course Name: "; getline(cin, name);
-            cout << "Credit Hours: "; cin >> credits;
-            cin.ignore(1000, '\n'); 
+            string name;
+            float credits;
+            cout << "New Course Name: ";
+            getline(cin, name);
+            cout << "Credit Hours: ";
+            cin >> credits;
+            cin.ignore(1000, '\n');
 
             activeUser.getProfiles()[0].getSemesters()[0].addCourse(name, credits);
             saveData(activeUser);
@@ -489,8 +673,9 @@ void studyPortal(User& activeUser)
         }
         else if (userChoice == 4)
         {
-            string nameToRemove; 
-            cout << "Enter Course to Remove: "; getline(cin, nameToRemove);
+            string nameToRemove;
+            cout << "Enter Course to Remove: ";
+            getline(cin, nameToRemove);
 
             bool courseWasFound = false;
             auto iterator = courseList.begin();
@@ -499,27 +684,33 @@ void studyPortal(User& activeUser)
             {
                 if (iterator->getCourseName() == nameToRemove)
                 {
-                    iterator = courseList.erase(iterator); 
+                    iterator = courseList.erase(iterator);
                     StudySession::courseTotalTime.erase(nameToRemove);
                     courseWasFound = true;
                     cout << "Course removed successfully!" << endl;
                 }
-                else ++iterator;
+                else
+                    ++iterator;
             }
 
-            if (courseWasFound) saveData(activeUser);
-            else cout << "Error: Course not found." << endl;
+            if (courseWasFound)
+                saveData(activeUser);
+            else
+                cout << "Error: Course not found." << endl;
         }
-        
-        else if (userChoice == 5) {
+
+        else if (userChoice == 5)
+        {
             sugg.generateSuggestions(courseList, semID, StudySession::getAllCourseTotals());
         }
-  
-        else if (userChoice == 6) {
+
+        else if (userChoice == 6)
+        {
             Quiz::addNewQuiz(semID);
         }
 
-        else if (userChoice == 7) {
+        else if (userChoice == 7)
+        {
             reviewFlashcards(activeUser);
         }
 
@@ -529,19 +720,20 @@ void studyPortal(User& activeUser)
             {
                 AIInsight<Course>::generateInsights(sessions, courseList, sugg);
             }
-            catch(const InsightException& e)
+            catch (const InsightException &e)
             {
                 std::cerr << e.what() << '\n';
             }
         }
 
-        else if (userChoice == 9) 
+        else if (userChoice == 9)
         {
             int todoChoice;
-            do {
+            do
+            {
                 cout << "\n========== TO-DO LIST MANAGER ==========" << endl;
                 userToDo.generate_progress_report();
-                
+
                 cout << "\n--- TASK MANAGEMENT ---" << endl;
                 cout << "1. Add Task" << endl;
                 cout << "2. Mark Task Complete" << endl;
@@ -553,160 +745,211 @@ void studyPortal(User& activeUser)
                 cout << "8. Sort Tasks" << endl;
                 cout << "9. Show Overdue Tasks" << endl;
                 cout << "10. Clear All Tasks" << endl;
-                
+
                 cout << "\n--- FILE HANDLING ---" << endl;
                 cout << "11. Save To-Do List" << endl;
                 cout << "12. Load To-Do List" << endl;
                 cout << "13. Export as CSV" << endl;
                 cout << "14. Save as Simple Format" << endl;
                 cout << "15. Load Simple Format" << endl;
-                
+
                 cout << "\n0. Back to Dashboard" << endl;
                 cout << "Choice: ";
-                
+
                 cin >> todoChoice;
                 cin.ignore(1000, '\n');
 
-                switch(todoChoice) {
-                    case 1: {
-                        string t, s, c;
-                        cout << "Task Title: "; getline(cin, t);
-                        cout << "Subject: "; getline(cin, s);
-                        cout << "Category (Assignment/Project/Exam): "; getline(cin, c);
-                        userToDo.add_task(t, s, c);
-                        cout << "Task added successfully!" << endl;
-                        break;
+                switch (todoChoice)
+                {
+                case 1:
+                {
+                    string t, s, c;
+                    cout << "Task Title: ";
+                    getline(cin, t);
+                    cout << "Subject: ";
+                    getline(cin, s);
+                    cout << "Category (Assignment/Project/Exam): ";
+                    getline(cin, c);
+                    userToDo.add_task(t, s, c);
+                    cout << "Task added successfully!" << endl;
+                    break;
+                }
+                case 2:
+                {
+                    int id;
+                    cout << "Enter Task ID to complete: ";
+                    cin >> id;
+                    userToDo.mark_complete(id);
+                    b.taskCompleted(userToDo.getCompletedTaskCount());
+                    cout << "Task marked complete!" << endl;
+                    break;
+                }
+                case 3:
+                {
+                    int id;
+                    cout << "Enter Task ID to mark incomplete: ";
+                    cin >> id;
+                    userToDo.mark_incomplete(id);
+                    cout << "Task marked incomplete!" << endl;
+                    break;
+                }
+                case 4:
+                {
+                    int id;
+                    cout << "Enter Task ID to remove: ";
+                    cin >> id;
+                    userToDo.remove_task(id);
+                    cout << "Task removed!" << endl;
+                    break;
+                }
+                case 5:
+                {
+                    int id, priority;
+                    cout << "Enter Task ID: ";
+                    cin >> id;
+                    cout << "Enter Priority (1=Low, 2=Medium, 3=High): ";
+                    cin >> priority;
+                    if (priority >= 1 && priority <= 3)
+                    {
+                        userToDo.set_priority(id, priority);
+                        cout << "Priority updated!" << endl;
                     }
-                    case 2: {
-                        int id;
-                        cout << "Enter Task ID to complete: "; cin >> id;
-                        userToDo.mark_complete(id);
-                        b.taskCompleted(userToDo.getCompletedTaskCount());
-                        cout << "Task marked complete!" << endl;
-                        break;
+                    else
+                    {
+                        cout << "Invalid priority!" << endl;
                     }
-                    case 3: {
-                        int id;
-                        cout << "Enter Task ID to mark incomplete: "; cin >> id;
-                        userToDo.mark_incomplete(id);
-                        cout << "Task marked incomplete!" << endl;
-                        break;
+                    break;
+                }
+                case 6:
+                {
+                    int id;
+                    double hours;
+                    cout << "Enter Task ID: ";
+                    cin >> id;
+                    cout << "Enter study hours to add: ";
+                    cin >> hours;
+                    userToDo.add_study_time(id, hours);
+                    cout << "Study time added!" << endl;
+                    break;
+                }
+                case 7:
+                {
+                    int id;
+                    int days;
+                    cout << "Enter Task ID: ";
+                    cin >> id;
+                    cout << "Enter deadline (days from now): ";
+                    cin >> days;
+                    time_t deadline = time(0) + (days * 24 * 60 * 60);
+                    userToDo.add_deadline(id, deadline);
+                    cout << "Deadline added!" << endl;
+                    break;
+                }
+                case 8:
+                {
+                    int sortChoice;
+                    cout << "Sort by:\n1. Priority\n2. Deadline\n3. Subject\nChoice: ";
+                    cin >> sortChoice;
+                    if (sortChoice == 1)
+                        userToDo.sort_by_priority();
+                    else if (sortChoice == 2)
+                        userToDo.sort_by_deadline();
+                    else if (sortChoice == 3)
+                        userToDo.sort_by_subject();
+                    cout << "Tasks sorted!" << endl;
+                    break;
+                }
+                case 9:
+                {
+                    vector<int> overdue = userToDo.get_overdue_tasks();
+                    if (overdue.empty())
+                    {
+                        cout << "No overdue tasks!" << endl;
                     }
-                    case 4: {
-                        int id;
-                        cout << "Enter Task ID to remove: "; cin >> id;
-                        userToDo.remove_task(id);
-                        cout << "Task removed!" << endl;
-                        break;
+                    else
+                    {
+                        cout << "Overdue Tasks: ";
+                        for (int id : overdue)
+                            cout << id << " ";
+                        cout << endl;
                     }
-                    case 5: {
-                        int id, priority;
-                        cout << "Enter Task ID: "; cin >> id;
-                        cout << "Enter Priority (1=Low, 2=Medium, 3=High): "; cin >> priority;
-                        if (priority >= 1 && priority <= 3) {
-                            userToDo.set_priority(id, priority);
-                            cout << "Priority updated!" << endl;
-                        } else {
-                            cout << "Invalid priority!" << endl;
-                        }
-                        break;
+                    break;
+                }
+                case 10:
+                {
+                    char confirm;
+                    cout << "Are you sure? (y/n): ";
+                    cin >> confirm;
+                    if (confirm == 'y' || confirm == 'Y')
+                    {
+                        userToDo.clear_tasks();
+                        cout << "All tasks cleared!" << endl;
                     }
-                    case 6: {
-                        int id; double hours;
-                        cout << "Enter Task ID: "; cin >> id;
-                        cout << "Enter study hours to add: "; cin >> hours;
-                        userToDo.add_study_time(id, hours);
-                        cout << "Study time added!" << endl;
-                        break;
+                    break;
+                }
+                case 11:
+                {
+                    string filename;
+                    cout << "Enter filename to save (default: todo.dat): ";
+                    getline(cin, filename);
+                    if (filename.empty())
+                        filename = "todo.dat";
+                    userToDo.saveToFile(filename);
+                    break;
+                }
+                case 12:
+                {
+                    string filename;
+                    cout << "Enter filename to load: ";
+                    getline(cin, filename);
+                    try
+                    {
+                        userToDo.loadFromFile(filename);
                     }
-                    case 7: {
-                        int id; int days;
-                        cout << "Enter Task ID: "; cin >> id;
-                        cout << "Enter deadline (days from now): "; cin >> days;
-                        time_t deadline = time(0) + (days * 24 * 60 * 60);
-                        userToDo.add_deadline(id, deadline);
-                        cout << "Deadline added!" << endl;
-                        break;
+                    catch (const exception &e)
+                    {
+                        cout << "Error: " << e.what() << endl;
                     }
-                    case 8: {
-                        int sortChoice;
-                        cout << "Sort by:\n1. Priority\n2. Deadline\n3. Subject\nChoice: ";
-                        cin >> sortChoice;
-                        if (sortChoice == 1) userToDo.sort_by_priority();
-                        else if (sortChoice == 2) userToDo.sort_by_deadline();
-                        else if (sortChoice == 3) userToDo.sort_by_subject();
-                        cout << "Tasks sorted!" << endl;
-                        break;
+                    break;
+                }
+                case 13:
+                {
+                    string filename;
+                    cout << "Enter CSV filename (default: todo.csv): ";
+                    getline(cin, filename);
+                    if (filename.empty())
+                        filename = "todo.csv";
+                    userToDo.exportToCSV(filename);
+                    break;
+                }
+                case 14:
+                {
+                    string filename;
+                    cout << "Enter filename for simple format: ";
+                    getline(cin, filename);
+                    userToDo.saveToSimpleFormat(filename);
+                    break;
+                }
+                case 15:
+                {
+                    string filename;
+                    cout << "Enter simple format filename to load: ";
+                    getline(cin, filename);
+                    try
+                    {
+                        userToDo.loadFromSimpleFormat(filename);
                     }
-                    case 9: {
-                        vector<int> overdue = userToDo.get_overdue_tasks();
-                        if (overdue.empty()) {
-                            cout << "No overdue tasks!" << endl;
-                        } else {
-                            cout << "Overdue Tasks: ";
-                            for (int id : overdue) cout << id << " ";
-                            cout << endl;
-                        }
-                        break;
+                    catch (const exception &e)
+                    {
+                        cout << "Error: " << e.what() << endl;
                     }
-                    case 10: {
-                        char confirm;
-                        cout << "Are you sure? (y/n): "; cin >> confirm;
-                        if (confirm == 'y' || confirm == 'Y') {
-                            userToDo.clear_tasks();
-                            cout << "All tasks cleared!" << endl;
-                        }
-                        break;
-                    }
-                    case 11: {
-                        string filename;
-                        cout << "Enter filename to save (default: todo.dat): ";
-                        getline(cin, filename);
-                        if (filename.empty()) filename = "todo.dat";
-                        userToDo.saveToFile(filename);
-                        break;
-                    }
-                    case 12: {
-                        string filename;
-                        cout << "Enter filename to load: "; getline(cin, filename);
-                        try {
-                            userToDo.loadFromFile(filename);
-                        } catch (const exception& e) {
-                            cout << "Error: " << e.what() << endl;
-                        }
-                        break;
-                    }
-                    case 13: {
-                        string filename;
-                        cout << "Enter CSV filename (default: todo.csv): ";
-                        getline(cin, filename);
-                        if (filename.empty()) filename = "todo.csv";
-                        userToDo.exportToCSV(filename);
-                        break;
-                    }
-                    case 14: {
-                        string filename;
-                        cout << "Enter filename for simple format: ";
-                        getline(cin, filename);
-                        userToDo.saveToSimpleFormat(filename);
-                        break;
-                    }
-                    case 15: {
-                        string filename;
-                        cout << "Enter simple format filename to load: ";
-                        getline(cin, filename);
-                        try {
-                            userToDo.loadFromSimpleFormat(filename);
-                        } catch (const exception& e) {
-                            cout << "Error: " << e.what() << endl;
-                        }
-                        break;
-                    }
-                    case 0:
-                        cout << "Returning to dashboard..." << endl;
-                        break;
-                    default:
-                        cout << "Invalid choice!" << endl;
+                    break;
+                }
+                case 0:
+                    cout << "Returning to dashboard..." << endl;
+                    break;
+                default:
+                    cout << "Invalid choice!" << endl;
                 }
             } while (todoChoice != 0);
         }
@@ -729,66 +972,73 @@ void studyPortal(User& activeUser)
                 examRoutine.addItem(q);
             }
             time_t now = time(0);
-            tm* ltm = localtime(&now);
+            tm *ltm = localtime(&now);
 
-            
             tm dateObj = *ltm;
-            
-            int d   = dateObj.tm_mday;
-            int m   = dateObj.tm_mon + 1;    
-            int y   = dateObj.tm_year + 1900;
-            int hr  = dateObj.tm_hour;
+
+            int d = dateObj.tm_mday;
+            int m = dateObj.tm_mon + 1;
+            int y = dateObj.tm_year + 1900;
+            int hr = dateObj.tm_hour;
             int min = dateObj.tm_min;
 
-            cout << "Current Date and Time: " << d << "/" << m << "/" << y 
-                << " " << hr << ":" << min << endl;
-           
-            
-            while(1){
-            string sub,syl;
-            cout<<"Enter exam course:(Press 0 to end)";
-            cin>>sub;
-            if(sub=="0")
-                break;
-            cout<<"Enter exam syllabus:";
-            cin>>syl;
+            cout << "Current Date and Time: " << d << "/" << m << "/" << y
+                 << " " << hr << ":" << min << endl;
 
-            examRoutine.addItem(Quiz(1, semID, sub, syl, dateObj));
+            while (1)
+            {
+                string sub, syl;
+                cout << "Enter exam course:(Press 0 to end)";
+                cin >> sub;
+                if (sub == "0")
+                    break;
+                cout << "Enter exam syllabus:";
+                cin >> syl;
 
+                examRoutine.addItem(Quiz(1, semID, sub, syl, dateObj));
             }
             Routine<ClassSession> classRoutine;
-            while(1)
+            while (1)
             {
                 string c;
-                
-                int day,hour,minute;
-                cout<<"Enter course:(Press 0 to end)";
-                cin>>c;
-                if(c=="0")
+
+                int day, hour, minute;
+                cout << "Enter course:(Press 0 to end)";
+                cin >> c;
+                if (c == "0")
                     break;
-                cout<<"Enter day_number hour minute";
-                cin>>day>>hour>>minute;
-            classRoutine.addItem(ClassSession(c,day,hour,minute));
+                cout << "Enter day_number hour minute";
+                cin >> day >> hour >> minute;
+                classRoutine.addItem(ClassSession(c, day, hour, minute));
             }
             classRoutine.sortRoutine([](const ClassSession &a, const ClassSession &b)
                                      { return a.getday() < b.getday(); });
-            cout<<"---------EXAM ROUTINE----------\n";
+            cout << "---------EXAM ROUTINE----------\n";
             examRoutine.showRoutine();
-            cout<<"\n---------CLASS ROUTINE----------\n";
+            cout << "\n---------CLASS ROUTINE----------\n";
             classRoutine.showRoutine();
         }
-        else if (userChoice == 13)  // Exit
+        else if (userChoice == 13)
+        {
+            examScorePortal();
+        }
+        else if (userChoice == 14) // Exit
         {
             userToDo.saveToFile("todo.dat");
             // ── Auto-save streaks on exit ────────────────────────────────────
-            try { streakTracker.saveToFile(streakFile); }
-            catch (...) {}
+            try
+            {
+                streakTracker.saveToFile(streakFile);
+            }
+            catch (...)
+            {
+            }
             // ─────────────────────────────────────────────────────────────────
             showHydrationReport(b);
             cout << "To-Do list and streaks saved. Goodbye!" << endl;
             return;
         }
-        // else if (userChoice == 14) 
+        // else if (userChoice == 14)
         // {
         //     cout << "\n--- Available Courses ---" << endl;
         //     for (const auto& course : courseList)
@@ -800,7 +1050,6 @@ void studyPortal(User& activeUser)
         //     cout << "Select course for Pomodoro: ";
         //     getline(cin, selectedCourse);
 
-            
         //     bool exists = false;
         //     for (const auto& c : courseList)
         //     {
@@ -823,9 +1072,9 @@ void studyPortal(User& activeUser)
         //             catch (const StudyTracker::StreakException&) { /* already exists */ }
 
         //             streakTracker.recordStudyDay(selectedCourse);
-                    
+
         //             cout << "\n🔥 Pomodoro Streak updated!" << endl;
-        //             cout << "Current streak for " << selectedCourse << ": " 
+        //             cout << "Current streak for " << selectedCourse << ": "
         //                 << streakTracker.getCurrentStreak(selectedCourse) << " day(s)" << endl;
 
         //             // Save the streak to file immediately
