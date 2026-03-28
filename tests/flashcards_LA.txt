@@ -1,0 +1,59 @@
+What is a vector?|A quantity having both magnitude and direction, or an ordered list of numbers
+
+What is a scalar?|A single number that scales a vector or matrix
+
+What is a matrix?|A rectangular array of numbers arranged in rows and columns
+
+What is the order of a matrix?|The number of rows and columns (e.g., m × n)
+
+What is a square matrix?|A matrix with the same number of rows and columns
+
+What is an identity matrix?|A square matrix with 1s on the diagonal and 0s elsewhere
+
+What is a zero matrix?|A matrix where all entries are zero
+
+What is matrix addition?|Adding corresponding entries of two matrices of the same size
+
+What is scalar multiplication?|Multiplying every entry of a matrix by a constant
+
+What is matrix multiplication?|The dot product of rows of the first matrix with columns of the second
+
+What is the transpose of a matrix?|Flipping a matrix over its diagonal; rows become columns
+
+What is a determinant?|A scalar value that can be computed from a square matrix, indicating invertibility
+
+What is an inverse matrix?|A matrix that when multiplied by the original yields the identity matrix
+
+What is a system of linear equations?|A set of equations where each is linear in the variables
+
+What is Gaussian elimination?|A method for solving linear systems using row operations
+
+What is a row echelon form?|A matrix where leading entries are 1 and appear to the right of previous rows
+
+What is a reduced row echelon form?|Row echelon form with zeros above and below each leading 1
+
+What is the rank of a matrix?|The number of linearly independent rows or columns
+
+What is a vector space?|A set of vectors closed under addition and scalar multiplication
+
+What is a subspace?|A subset of a vector space that is itself a vector space
+
+What is linear independence?|A set of vectors where no vector is a linear combination of the others
+
+What is a basis?|A linearly independent set that spans the entire vector space
+
+What is the dimension of a vector space?|The number of vectors in any basis
+
+What is an eigenvalue?|A scalar λ such that A v = λ v for some nonzero vector v
+
+What is an eigenvector?|A nonzero vector v such that A v = λ v for some eigenvalue λ
+
+What is a diagonalizable matrix?|A square matrix that can be written as PDP⁻¹ with D diagonal
+
+What is an orthogonal matrix?|A square matrix whose transpose equals its inverse
+
+What is the dot product of two vectors?|The sum of the products of corresponding components
+
+What is the cross product of two vectors?|A vector perpendicular to both inputs (in 3D)
+
+What is a linear transformation?|A mapping T that satisfies T(u+v)=T(u)+T(v) and T(cu)=cT(u)
