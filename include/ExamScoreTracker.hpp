@@ -95,11 +95,6 @@ public:
 
     /**
      * Adds or updates scores for a course.
-     * @param courseName name of the course
-     * @param midMarks marks obtained in midterm
-     * @param midMax maximum marks for midterm
-     * @param finalMarks marks obtained in final (0 if not taken yet)
-     * @param finalMax maximum marks for final
      */
     void setScores(const string& courseName, int midMarks, int midMax, int finalMarks, int finalMax) 
     {
