@@ -77,7 +77,7 @@ events:
       The output was:
       0
       MSBuild version 18.0.5+e22287bf1 for .NET Framework
-      Build started 3/28/2026 8:31:21 AM.
+      Build started 3/28/2026 10:41:39 AM.
       
       Project "C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\4.2.3\\CompilerIdC\\CompilerIdC.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -106,7 +106,7 @@ events:
           0 Warning(s)
           0 Error(s)
       
-      Time Elapsed 00:00:01.29
+      Time Elapsed 00:00:00.86
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -739,7 +739,7 @@ events:
       The output was:
       0
       MSBuild version 18.0.5+e22287bf1 for .NET Framework
-      Build started 3/28/2026 8:31:23 AM.
+      Build started 3/28/2026 10:41:40 AM.
       
       Project "C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\4.2.3\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -768,7 +768,7 @@ events:
           0 Warning(s)
           0 Error(s)
       
-      Time Elapsed 00:00:00.91
+      Time Elapsed 00:00:00.82
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -1158,8 +1158,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-esmgw6"
-      binary: "C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-esmgw6"
+      source: "C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-prdoag"
+      binary: "C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-prdoag"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
       CMAKE_C_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -1168,39 +1168,39 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-esmgw6'
+        Change Dir: 'C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-prdoag'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_e18e7.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=18.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_d65a6.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=18.0 /v:n
         MSBuild version 18.0.5+e22287bf1 for .NET Framework
-        Build started 3/28/2026 8:31:24 AM.
+        Build started 3/28/2026 10:41:42 AM.
         
-        Project "C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-esmgw6\\cmTC_e18e7.vcxproj" on node 1 (default targets).
+        Project "C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-prdoag\\cmTC_d65a6.vcxproj" on node 1 (default targets).
         PrepareForBuild:
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-esmgw6\\Debug\\".
-          Creating directory "cmTC_e18e7.dir\\Debug\\cmTC_e18e7.tlog\\".
+          Creating directory "C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-prdoag\\Debug\\".
+          Creating directory "cmTC_d65a6.dir\\Debug\\cmTC_d65a6.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_e18e7.dir\\Debug\\cmTC_e18e7.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_e18e7.dir\\Debug\\cmTC_e18e7.tlog\\unsuccessfulbuild".
+          Creating "cmTC_d65a6.dir\\Debug\\cmTC_d65a6.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_d65a6.dir\\Debug\\cmTC_d65a6.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_e18e7.dir\\Debug\\\\" /Fd"cmTC_e18e7.dir\\Debug\\vc145.pdb" /external:W3 /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_d65a6.dir\\Debug\\\\" /Fd"cmTC_d65a6.dir\\Debug\\vc145.pdb" /external:W3 /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCCompilerABI.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.50.35723 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_e18e7.dir\\Debug\\\\" /Fd"cmTC_e18e7.dir\\Debug\\vc145.pdb" /external:W3 /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCCompilerABI.c"
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_d65a6.dir\\Debug\\\\" /Fd"cmTC_d65a6.dir\\Debug\\vc145.pdb" /external:W3 /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-esmgw6\\Debug\\cmTC_e18e7.exe" /INCREMENTAL /ILK:"cmTC_e18e7.dir\\Debug\\cmTC_e18e7.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-esmgw6/Debug/cmTC_e18e7.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-esmgw6/Debug/cmTC_e18e7.lib" /MACHINE:X64  /machine:x64 cmTC_e18e7.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_e18e7.vcxproj -> C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-esmgw6\\Debug\\cmTC_e18e7.exe
+          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-prdoag\\Debug\\cmTC_d65a6.exe" /INCREMENTAL /ILK:"cmTC_d65a6.dir\\Debug\\cmTC_d65a6.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-prdoag/Debug/cmTC_d65a6.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-prdoag/Debug/cmTC_d65a6.lib" /MACHINE:X64  /machine:x64 cmTC_d65a6.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_d65a6.vcxproj -> C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-prdoag\\Debug\\cmTC_d65a6.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_e18e7.dir\\Debug\\cmTC_e18e7.tlog\\unsuccessfulbuild".
-          Touching "cmTC_e18e7.dir\\Debug\\cmTC_e18e7.tlog\\cmTC_e18e7.lastbuildstate".
-        Done Building Project "C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-esmgw6\\cmTC_e18e7.vcxproj" (default targets).
+          Deleting file "cmTC_d65a6.dir\\Debug\\cmTC_d65a6.tlog\\unsuccessfulbuild".
+          Touching "cmTC_d65a6.dir\\Debug\\cmTC_d65a6.tlog\\cmTC_d65a6.lastbuildstate".
+        Done Building Project "C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-prdoag\\cmTC_d65a6.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:01.09
+        Time Elapsed 00:00:00.87
         
       exitCode: 0
   -
@@ -1240,8 +1240,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-6bx60v"
-      binary: "C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-6bx60v"
+      source: "C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-n7bzv5"
+      binary: "C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-n7bzv5"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /W3 /GR /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/MDd /Zi /Ob0 /Od /RTC1"
@@ -1251,39 +1251,39 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-6bx60v'
+        Change Dir: 'C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-n7bzv5'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_ddbea.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=18.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/18/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_183d2.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=18.0 /v:n
         MSBuild version 18.0.5+e22287bf1 for .NET Framework
-        Build started 3/28/2026 8:31:26 AM.
+        Build started 3/28/2026 10:41:43 AM.
         
-        Project "C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6bx60v\\cmTC_ddbea.vcxproj" on node 1 (default targets).
+        Project "C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-n7bzv5\\cmTC_183d2.vcxproj" on node 1 (default targets).
         PrepareForBuild:
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6bx60v\\Debug\\".
-          Creating directory "cmTC_ddbea.dir\\Debug\\cmTC_ddbea.tlog\\".
+          Creating directory "C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-n7bzv5\\Debug\\".
+          Creating directory "cmTC_183d2.dir\\Debug\\cmTC_183d2.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_ddbea.dir\\Debug\\cmTC_ddbea.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_ddbea.dir\\Debug\\cmTC_ddbea.tlog\\unsuccessfulbuild".
+          Creating "cmTC_183d2.dir\\Debug\\cmTC_183d2.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_183d2.dir\\Debug\\cmTC_183d2.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_ddbea.dir\\Debug\\\\" /Fd"cmTC_ddbea.dir\\Debug\\vc145.pdb" /external:W3 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_183d2.dir\\Debug\\\\" /Fd"cmTC_183d2.dir\\Debug\\vc145.pdb" /external:W3 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.50.35723 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_ddbea.dir\\Debug\\\\" /Fd"cmTC_ddbea.dir\\Debug\\vc145.pdb" /external:W3 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /Fo"cmTC_183d2.dir\\Debug\\\\" /Fd"cmTC_183d2.dir\\Debug\\vc145.pdb" /external:W3 /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6bx60v\\Debug\\cmTC_ddbea.exe" /INCREMENTAL /ILK:"cmTC_ddbea.dir\\Debug\\cmTC_ddbea.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-6bx60v/Debug/cmTC_ddbea.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-6bx60v/Debug/cmTC_ddbea.lib" /MACHINE:X64  /machine:x64 cmTC_ddbea.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_ddbea.vcxproj -> C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6bx60v\\Debug\\cmTC_ddbea.exe
+          C:\\Program Files\\Microsoft Visual Studio\\18\\Community\\VC\\Tools\\MSVC\\14.50.35717\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-n7bzv5\\Debug\\cmTC_183d2.exe" /INCREMENTAL /ILK:"cmTC_183d2.dir\\Debug\\cmTC_183d2.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-n7bzv5/Debug/cmTC_183d2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/Asus/OneDrive/Desktop/OOP 4301 project/Heisenbugs/build/CMakeFiles/CMakeScratch/TryCompile-n7bzv5/Debug/cmTC_183d2.lib" /MACHINE:X64  /machine:x64 cmTC_183d2.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_183d2.vcxproj -> C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-n7bzv5\\Debug\\cmTC_183d2.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_ddbea.dir\\Debug\\cmTC_ddbea.tlog\\unsuccessfulbuild".
-          Touching "cmTC_ddbea.dir\\Debug\\cmTC_ddbea.tlog\\cmTC_ddbea.lastbuildstate".
-        Done Building Project "C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-6bx60v\\cmTC_ddbea.vcxproj" (default targets).
+          Deleting file "cmTC_183d2.dir\\Debug\\cmTC_183d2.tlog\\unsuccessfulbuild".
+          Touching "cmTC_183d2.dir\\Debug\\cmTC_183d2.tlog\\cmTC_183d2.lastbuildstate".
+        Done Building Project "C:\\Users\\Asus\\OneDrive\\Desktop\\OOP 4301 project\\Heisenbugs\\build\\CMakeFiles\\CMakeScratch\\TryCompile-n7bzv5\\cmTC_183d2.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:00.75
+        Time Elapsed 00:00:00.99
         
       exitCode: 0
   -

@@ -59,7 +59,7 @@ public:
             
             
             breakSystem->checkStudyReminder(minutes);
-            std::this_thread::sleep_for(std::chrono::seconds(60));
+            std::this_thread::sleep_for(std::chrono::seconds(20));
             /*char c;
             cin>>c;
             if(c=='0')

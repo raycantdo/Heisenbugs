@@ -25,8 +25,8 @@ public:
     }
     void checkStudyReminder(int step)
     {
-        if(step && step % 3==0){
-            if(step%6==0)
+        if(step && step % 1==0){
+            if(step%2==0)
             {
                  std::cout << " Water reminder! \n";
             

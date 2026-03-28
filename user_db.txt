@@ -1,7 +1,7 @@
 Raida
 
 Linear Algebra
-DSA
 OOP
 COA
 EEE
+OOP
