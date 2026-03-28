@@ -30,26 +30,25 @@ public:
 
     string getAnswer() const { return answer; }
 
-     // Displays the question, waits for the user's answer, and checks correctness.
+     // Displays  question, waits for the user answer, and checks correctness.
 
     void ask() const 
     {
     
         cout << "\n❓ " << question << "\nYour answer: ";
 
-        // Read the user's answer (may contain spaces, so used getline)
+    
         string userInput;
         getline(cin, userInput);
 
         // Create copies for case‑insensitive comparison
-        string correct = answer;   // correct answer from the flashcard
-        string user = userInput;   // user's input
+        string correct = answer;   
+        string user = userInput;   
 
-        // Convert both strings to lowercase using std::transform ::tolower is the C function to convert a character to lowercase
+    
         transform(correct.begin(), correct.end(), correct.begin(), ::tolower);
         transform(user.begin(), user.end(), user.begin(), ::tolower);
 
-        // Compare the lowercase versions
         if (user == correct) 
         {
             cout << "✅ Correct!\n";
@@ -69,59 +68,49 @@ private:
 public:
     /**
      * Loads flashcards for a given course from a text file.
-     * File format: each line should contain a question and answer separated by a '|' character.
-     * Example line: "What is a class?|A blueprint for objects"
-     * 
-     * The file name is constructed as: "flashcards_" + courseName + ".txt"
-     * (spaces in the course name are allowed).
-     * 
-     * @param courseName The name of the course (used to build the filename).
-     * @return true if at least one flashcard was loaded, false if file couldn't be opened or no valid cards.
      */
     bool loadForCourse(const string& courseName) 
     {
         // Build the filename based on the course name
         string filename = "flashcards_" + courseName + ".txt";
-
-        // Attempt to open the file
+        
         ifstream file(filename);
-        if (!file.is_open()) {
-            // File doesn't exist or cannot be opened – inform the user
+        if (!file.is_open()) 
+        {
             cout << "No flashcards found for " << courseName << ".\n";
             return false;
         }
 
-        // Clear any previously loaded cards (in case this manager was used before)
         cards.clear();
 
         string line;
-        // Read the file line by line
+
         while (getline(file, line)) 
         {
-            // Skip empty lines
             if (line.empty()) continue;
 
-            // Find the position of the delimiter '|'
             size_t pos = line.find('|');
-            if (pos != string::npos) {
+            if (pos != string::npos) 
+            {
+                
                 // Split the line into question (before '|') and answer (after '|')
                 string q = line.substr(0, pos);
                 string a = line.substr(pos + 1);
 
-                // Create a new Flashcard and add it to the vector
                 cards.push_back(Flashcard(q, a));
-            } else {
-                // If a line doesn't contain '|', it's malformed – print a warning
+            } 
+            else
+            {
+                //  line is malformed if doesn't contain '|',   
                 cerr << "Warning: Skipping malformed line in " << filename << ": " << line << "\n";
             }
         }
 
-        file.close(); // Done reading
+        file.close(); 
 
         // Report how many cards were loaded
         cout << "Loaded " << cards.size() << " flashcards for " << courseName << ".\n";
 
-        // Return true only if at least one card was loaded
         return !cards.empty();
     }
 
@@ -153,16 +142,16 @@ public:
        //random_shuffle(indices.begin(), indices.end());
         shuffle(indices.begin(), indices.end(),default_random_engine(seed));
 
-        // Start the quiz
+        // Start quiz
         cout << "\n=== Flashcard Quiz ===\n";
         cout << "You will be shown " << cards.size() << " cards.\n";
 
         // Iterate through the shuffled indices
-        for (size_t idx : indices) {
+        for (size_t idx : indices) 
+        {
             // Ask the flashcard at position 'idx'
             cards[idx].ask();
 
-            // Pause until the user presses Enter
             cout << "Press Enter to continue...";
             cin.get(); // Waits for Enter key
         }
@@ -172,4 +161,4 @@ public:
     }
 };
 
-#endif // FLASHCARD_HPP
+#endif 
